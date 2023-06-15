@@ -2,8 +2,8 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-@app.get("", tags=["Root"])
+@app.get("/", tags=["Root"])
 async def read_root():
 	return {
-		"message": "Welcome"
+		"message": "Official @pyguru telegram api"
 	}
