@@ -40,6 +40,4 @@ async def imagineImg(prompt: str, style):
         return
 
     img_data = imagine.upscale(image=img_data)
-    with open("test.jpg", "wb") as file:
-    	file.write(img_data)
     return img_data
