@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from fastapi.responses import Response
 from pydantic import BaseModel
 
-from server.app.imagine import imagineImg, all_styles
+from app.imagine.main import imagine, all_styles
 
 router = APIRouter()
 
@@ -11,10 +11,11 @@ class ImageRequest(BaseModel):
     style: str
 
 @router.post("/imagine")
-async def imagine(request: ImageRequest):
+async def imagineImg(request: ImageRequest):
 	try:
 		prompt = request.prompt
-		data = await imagineImg(prompt, request.style)
+		style = request.style
+		data = await imagine(prompt, style)
 		return Response(content=data, media_type="image/png", headers={"prompt": prompt})
 	except:
 		return {"message" : "error", "prompt": prompt, "content": None}
