@@ -1,30 +1,17 @@
-from imaginepy import Imagine, Style, Ratio
+from imaginepy import Imagine, Ratio
 from loguru import logger
+from app.imagine.styles import STYLES
 
-
-styles = {
-    "anime": Style.ANIME_V2,
-    "cosmic": Style.COMIC_V2,
-    "marble": Style.MARBLE,
-    "disney": Style.DISNEY,
-    "minecraft": Style.MINECRAFT,
-    "macro": Style.MACRO_PHOTOGRAPHY,
-    "gta": Style.GTA,
-    "ghibli": Style.STUDIO_GHIBLI,
-    "dystopian": Style.DYSTOPIAN,
-    "surreal": Style.SURREALISM,
-    "graffiti": Style.GRAFFITI,
-}
 
 def get_style(style):
     try:
-        return styles[style]
+        return STYLES[style]
     except Exception:
-        return Style.V4_CREATIVE
+        return STYLES["portrait"]
 
 
 async def all_styles() -> list[str]:
-    return list(styles.keys())
+    return list(STYLES.keys())
 
 
 async def imagine(prompt: str, style: str) -> bytes:

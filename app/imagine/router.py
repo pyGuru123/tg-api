@@ -10,7 +10,7 @@ class ImageRequest(BaseModel):
     prompt: str
     style: str
 
-@router.post("/imagine")
+@router.post("/generate")
 async def imagineImg(request: ImageRequest):
 	try:
 		prompt = request.prompt

@@ -8,7 +8,7 @@ app = FastAPI(
 # --------------------------------------------------------------------------
 #                                Routers
 
-app.include_router(ImagineRouter, prefix="/api", tags=["Imagine"])
+app.include_router(ImagineRouter, prefix="/api/v1/imagine", tags=["Imagine"])
 
 # --------------------------------------------------------------------------
 
