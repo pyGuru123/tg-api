@@ -1,9 +1,16 @@
 from fastapi import FastAPI
 from app.imagine.router import router as ImagineRouter
 
+from imaginepy import Imagine
+
 app = FastAPI(
 		title="tg-api"
 	)
+
+# @app.on_event("startup")
+# async def startup():
+# 	app.imagine = Imagine()
+
 
 # --------------------------------------------------------------------------
 #                                Routers

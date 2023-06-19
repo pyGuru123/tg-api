@@ -1,27 +1,25 @@
 from imaginepy import Imagine, Ratio
 from loguru import logger
+
 from app.imagine.styles import STYLES
 
+imagine_engine = Imagine()
 
 def get_style(style):
     try:
         return STYLES[style]
     except Exception:
-        return STYLES["portrait"]
+        return STYLES["realistic"]
 
 
 async def all_styles() -> list[str]:
     return list(STYLES.keys())
 
 
-async def imagine(prompt: str, style: str) -> bytes:
-    imagine = Imagine()
+async def imagine(prompt: str, style: str, upscale: bool) -> bytes:
     style = get_style(style)
 
-    logger.info(f"{prompt=}")
-    logger.info(f"{style=}")
-    
-    img_data = imagine.sdprem(
+    img_data = imagine_engine.sdprem(
         prompt=prompt,
         style=style,
         ratio=Ratio.RATIO_16X9
@@ -31,7 +29,7 @@ async def imagine(prompt: str, style: str) -> bytes:
         logger.error("An error occurred while generating the image.")
         raise Exception("An error occurred while generating the image")
 
-    if "--upscale" in prompt:
+    if upscale:
         img_data = imagine.upscale(image=img_data)
 
     return img_data
