@@ -3,3 +3,4 @@ fastapi
 imaginepy
 requests
 uvicorn
+aiohttp

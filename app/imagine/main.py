@@ -1,5 +1,4 @@
 from imaginepy import Imagine, Ratio
-from loguru import logger
 
 from app.imagine.styles import STYLES
 
