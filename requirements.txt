@@ -1,6 +1,5 @@
 beautifulsoup4
 fastapi
 imaginepy
-loguru
 requests
 uvicorn

@@ -1,5 +1,4 @@
 import requests
-from loguru import logger
 from bs4 import BeautifulSoup
 from typing import Union
 

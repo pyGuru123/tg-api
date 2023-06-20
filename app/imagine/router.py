@@ -1,6 +1,5 @@
 from fastapi import APIRouter
 from typing import Union
-from loguru import logger
 from fastapi.responses import Response
 
 from app.model import ImagineRequest, ImagineResponse
@@ -18,7 +17,7 @@ async def imagineImg(request: ImagineRequest) -> Union[ImagineResponse, dict]:
 
 		return Response(content=data, media_type="image/png", headers={"prompt": prompt})
 	except Exception as e:
-		return {"message" : "error", "prompt": prompt, "content": None, "error": e}
+		return {"message" : "error", "prompt": prompt, "content": None, "error": str(e)}
 
 
 @router.get("/styles")

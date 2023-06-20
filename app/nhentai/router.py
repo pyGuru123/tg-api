@@ -1,6 +1,5 @@
 from fastapi import APIRouter
 from typing import Union
-from loguru import logger
 
 from app.model import nhentaiRequest, nhentaiResponse
 from app.nhentai.main import main

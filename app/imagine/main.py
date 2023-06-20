@@ -26,7 +26,6 @@ async def imagine(prompt: str, style: str, upscale: bool) -> bytes:
     )
 
     if img_data is None:
-        logger.error("An error occurred while generating the image.")
         raise Exception("An error occurred while generating the image")
 
     if upscale:
