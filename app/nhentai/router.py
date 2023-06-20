@@ -7,8 +7,12 @@ from app.nhentai.main import main
 
 router = APIRouter()
 
-@router.post("/get")
+@router.post("/fetch")
 async def getNhentai(request: nhentaiRequest) -> Union[nhentaiResponse, dict]:
-	id = request.id
-	data = await main(id)
-	return data
+	try:
+		id = request.id
+		data = await main(id)
+		return data
+	except Exception as e:
+		logger.error(f"{e=}")
+		return {"messgae": "error", "error": str(e)}

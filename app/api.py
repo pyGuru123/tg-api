@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from app.imagine.router import router as ImagineRouter
-# from app.nhentai.router import router as nHentaiRouter
+from app.nhentai.router import router as nHentaiRouter
 
 app = FastAPI(
 		title="tg-api"
@@ -11,7 +11,7 @@ app = FastAPI(
 #                                Routers
 
 app.include_router(ImagineRouter, prefix="/api/v1/imagine", tags=["imagine"])
-# app.include_router(nHentaiRouter, prefix="/api/v1/nhentai", tags=["nhentai"])
+app.include_router(nHentaiRouter, prefix="/api/v1/nhentai", tags=["nhentai"])
 
 # --------------------------------------------------------------------------
 
