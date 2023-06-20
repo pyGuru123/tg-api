@@ -2,8 +2,6 @@ from fastapi import FastAPI
 from app.imagine.router import router as ImagineRouter
 from app.nhentai.router import router as nHentaiRouter
 
-from imaginepy import Imagine
-
 app = FastAPI(
 		title="tg-api"
 	)
