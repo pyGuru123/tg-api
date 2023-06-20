@@ -6,7 +6,7 @@ from app.nhentai.main import main
 
 router = APIRouter()
 
-@router.post("/fetch")
+@router.post("/get")
 async def getNhentai(request: nhentaiRequest) -> Union[nhentaiResponse, dict]:
 	try:
 		id = request.id
