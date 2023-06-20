@@ -4,7 +4,7 @@ from typing import Union
 
 from app.model import nhentaiResponse
 
-def main(id: int) -> Union[nhentaiResponse, dict]:
+async def main(id: int) -> Union[nhentaiResponse, dict]:
     response = {}
     r = requests.get(f"https://nhentai.to/g/{id}/1")
     if r.status_code == 404:
