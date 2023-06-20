@@ -3,7 +3,7 @@ from loguru import logger
 
 from app.imagine.styles import STYLES
 
-imagine_engine = Imagine()
+# imagine_engine = Imagine()
 
 def get_style(style):
     try:

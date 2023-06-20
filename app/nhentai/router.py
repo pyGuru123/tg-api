@@ -14,5 +14,4 @@ async def getNhentai(request: nhentaiRequest) -> Union[nhentaiResponse, dict]:
 		data = await main(id)
 		return data
 	except Exception as e:
-		logger.error(f"{e=}")
 		return {"messgae": "error", "error": str(e)}
