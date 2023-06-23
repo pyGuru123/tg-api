@@ -1,5 +1,5 @@
-from imaginepy import Imagine, Ratio
-
+from app.imagine.sync_imagine import Imagine
+from app.imagine.constants import Ratio
 from app.imagine.styles import STYLES
 
 imagine_engine = Imagine()

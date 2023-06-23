@@ -1,6 +1,4 @@
-# Allowed stylesw for image generation
-
-from imaginepy import Style
+from app.imagine.constants import Style
 
 STYLES = {
     "anime": Style.ANIME_V2,
@@ -21,7 +19,7 @@ STYLES = {
     "rainbow": Style.RAINBOW,
     "medieval": Style.MEDIEVAL,
     "origami": Style.ORIGAMI,
-    # "pattern": Style.PATTERN,
+    "pattern": Style.PATTERN,
     "fantasy": Style.FANTASY,
     "neon": Style.NEON,
     "haunted": Style.HAUNTED,
@@ -35,6 +33,6 @@ STYLES = {
     "futuristic": Style.FUTURISTIC,
     "polaroid": Style.POLAROID,
     "sketch": Style.SKETCH,
-    # "chromatic": Style.CHROMATIC,
+    "chromatic": Style.CHROMATIC,
     "popart": Style.POP_ART
 }
