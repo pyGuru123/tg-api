@@ -1,0 +1,14 @@
+name: Install Package
+on:
+  push:
+    branches:
+      - main
+jobs:
+  install-package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Install Package
+        run: |
+          pip install git+https://github.com/ItsCEED/Imaginepy.git@0372bcd455cb8dfe522e106a69e4b58abf9216bd
