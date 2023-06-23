@@ -18,3 +18,13 @@ class nhentaiResponse(BaseModel):
 	num_pages: int
 	cdn_url: str
 	urls: List[str]
+
+class coderunnerRequest(BaseModel):
+	code: str
+	lang: str = "python"
+
+class coderunnerResponse(BaseModel):
+	message: str
+	code: str
+	output: str
+	error: str
