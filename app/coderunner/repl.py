@@ -18,7 +18,7 @@ class CodeExecutor:
     def execute_python(self, code: str) -> str:
         with self.stdoutIO() as c:
             try:
-                exec(code)
+                exec(code, {'__builtins__': __builtins__})
             except Exception as e:
                 print(e)
-        return c.getvalue()
+        return c.getvalue() if c else ""
