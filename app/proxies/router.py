@@ -6,8 +6,8 @@ from app.proxies.gpt import search_gpt
 router = APIRouter()
 
 @router.post("/gpt")
-async def executor(request: proxyRequest) -> proxyResponse:
-	try:
+async def gpt(request: proxyRequest) -> proxyResponse:
+	# try:
 		apikey = request.apikey
 		prompt = request.prompt
 		response = await search_gpt(apikey, prompt)
@@ -17,8 +17,8 @@ async def executor(request: proxyRequest) -> proxyResponse:
 			response= response
 		)
 
-	except Exception as e:
-		return proxyResponse(
-			prompt= prompt,
-			response= str(e)
-		)
+	# except Exception as e:
+	# 	return proxyResponse(
+	# 		prompt= prompt,
+	# 		response= str(e)
+	# 	)
