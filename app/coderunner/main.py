@@ -4,7 +4,6 @@ from timeit import default_timer as timer
 
 async def execute_code(code: str) -> str:
     code = code.strip().strip("\n")
-    output = ""
 
     try:
         executor = CodeExecutor()
@@ -14,4 +13,4 @@ async def execute_code(code: str) -> str:
     except Exception as e:
         raise Exception(e)
 
-    return f"Result \n{output.rstrip()}Execution time: {end-start:.3f}s"
+    return f"Result \n{output.rstrip()}\nExecution time: {end-start:.3f}s"
