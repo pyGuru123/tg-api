@@ -28,11 +28,3 @@ class coderunnerResponse(BaseModel):
 	code: str
 	output: str
 	error: str
-
-class proxyRequest(BaseModel):
-	apikey: str
-	prompt: str
-
-class proxyResponse(BaseModel):
-	prompt: str
-	response: str
