@@ -26,5 +26,8 @@ async def search_gpt(apikey, prompt):
 		requests.post(ipEndpoint, headers=headers)
 
 	response = requests.post(chatEndpoint, headers=headers, json=data)
-	responses = response.json()
-	return responses["choices"][0]["message"]["content"]
+	if response.status_code == 200:
+		data = response.json()
+		return data["choices"][0]["message"]["content"]
+	else:
+		return f"Request error: {response.status_code}, {response.text}"
