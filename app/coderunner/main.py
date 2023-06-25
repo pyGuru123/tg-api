@@ -4,11 +4,18 @@ from timeit import default_timer as timer
 
 from app.coderunner.repl import CodeExecutor
 
+prepend_string = """
+import io
+import numpy as np
+import matplotlib.pyplot as plt
+plt.figure()
+"""
 
 append_string = """
 buffer = io.BytesIO()
 plt.savefig(buffer, format='png')
 buffer.seek(0)
+plt.close()
 """
 
 async def execute_code(code: str) -> str:
@@ -26,12 +33,12 @@ async def execute_code(code: str) -> str:
 
 
 async def plot_graph(code):
-    code = f"import io\nimport numpy as np\nimport matplotlib.pyplot as plt\n{code.strip()}\n{append_string}"
+    code = f"{prepend_string}\n{code.strip()}\n{append_string}"
 
     namespace = {}
     exec(code, namespace)
     binary_data = namespace['buffer'].getvalue()
     namespace['buffer'].close()
     namespace.clear()
-    
+
     return binary_data
