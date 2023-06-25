@@ -31,4 +31,7 @@ async def plot_graph(code):
     namespace = {}
     exec(code, namespace)
     binary_data = namespace['buffer'].getvalue()
+    namespace['buffer'].close()
+    namespace.clear()
+    
     return binary_data
