@@ -7,7 +7,7 @@ class ImagineRequest(BaseModel):
     style: str
     upscale: bool = False
 
-class ImagineResponse(BaseModel):
+class ImageResponse(BaseModel):
 	image: bytes
 
 class nhentaiRequest(BaseModel):

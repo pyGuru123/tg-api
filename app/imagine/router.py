@@ -2,13 +2,13 @@ from fastapi import APIRouter
 from typing import Union
 from fastapi.responses import Response
 
-from app.model import ImagineRequest, ImagineResponse
+from app.model import ImagineRequest, ImageResponse
 from app.imagine.main import imagine, all_styles
 
 router = APIRouter()
 
 @router.post("/generate")
-async def imagineImg(request: ImagineRequest) -> Union[ImagineResponse, dict]:
+async def generate(request: ImagineRequest) -> Union[ImageResponse, dict]:
 	try:
 		prompt = request.prompt
 		style = request.style
