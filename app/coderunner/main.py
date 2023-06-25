@@ -26,7 +26,7 @@ async def execute_code(code: str) -> str:
 
 
 async def plot_graph(code):
-    code = f"import io\nimport numpy as np\n{code.strip()}\nimport matplotlib.pyplot as plt\n{append_string}"
+    code = f"import io\nimport numpy as np\nimport matplotlib.pyplot as plt\n{code.strip()}\n{append_string}"
 
     namespace = {}
     exec(code, namespace)
