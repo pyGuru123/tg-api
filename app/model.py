@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from typing import Optional, List
 
 
 class ImagineRequest(BaseModel):
@@ -10,15 +9,6 @@ class ImagineRequest(BaseModel):
 class ImageResponse(BaseModel):
 	image: bytes
 
-class nhentaiRequest(BaseModel):
-	id: int
-
-class nhentaiResponse(BaseModel):
-	cdn_id: int
-	num_pages: int
-	cdn_url: str
-	urls: List[str]
-
 class coderunnerRequest(BaseModel):
 	code: str
 	lang: str = "python"
@@ -28,3 +18,12 @@ class coderunnerResponse(BaseModel):
 	code: str
 	output: str
 	error: str
+
+class sanatanResponse(BaseModel):
+	message: str
+	error: str
+	date: str
+	sunrise: str
+	sunset: str
+	shloka: str
+	importance: str
