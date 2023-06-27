@@ -1,17 +1,22 @@
 from pydantic import BaseModel
+from typing import Optional
 
 
 class ImagineRequest(BaseModel):
     prompt: str
     style: str
-    upscale: bool = False
+    upscale: Optional[bool] = False
 
 class ImageResponse(BaseModel):
 	image: bytes
 
 class coderunnerRequest(BaseModel):
 	code: str
-	lang: str = "python"
+	lang: Optional[str] = "python"
+
+class renderRequest(BaseModel):
+	code: str
+	theme: Optional[str] = "dark-plus"
 
 class coderunnerResponse(BaseModel):
 	message: str

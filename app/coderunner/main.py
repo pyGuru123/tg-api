@@ -1,4 +1,5 @@
 import io
+import requests
 import matplotlib.pyplot as plt
 from timeit import default_timer as timer
 
@@ -32,7 +33,7 @@ async def execute_code(code: str) -> str:
     return f"Result \n{output.rstrip()}\nExecution time: {end-start:.3f}s"
 
 
-async def plot_graph(code):
+async def plot_graph(code: str):
     code = f"{prepend_string}\n{code.strip()}\n{append_string}"
 
     namespace = {}
@@ -42,3 +43,17 @@ async def plot_graph(code):
     namespace.clear()
 
     return binary_data
+
+
+async def render_code(code: str, theme: str):
+    url = "https://sourcecodeshots.com/api/image"
+    json = {
+      "code": code.strip(),
+      "settings": {
+        "language": "python",
+        "theme": theme
+      }
+    }
+
+    response = requests.post(url, json=json)
+    return response.content
