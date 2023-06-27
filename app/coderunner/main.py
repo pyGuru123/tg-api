@@ -19,6 +19,12 @@ buffer.seek(0)
 plt.close()
 """
 
+def get_themes():
+    return ["abyss", "dark-plus", "light-plus", "github-dark", "github-light", "visual-studio-dark",
+            "visual-studio-light", "high-contrast", "kimbie-dark", "dimmed-monokai", "monokai", 
+            "night-owl", "night-owl-no-italic", "night-owl-light", "quietlight", "red",
+            "solarized-dark", "solarized-light", "tomorrow-night-blue"]
+
 async def execute_code(code: str) -> str:
     code = code.strip().strip("\n")
 

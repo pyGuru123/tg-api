@@ -4,7 +4,7 @@ from typing import Union
 
 from app.coderunner.main import execute_code
 from app.coderunner.main import plot_graph
-from app.coderunner.main import render_code
+from app.coderunner.main import render_code, get_themes
 from app.model import coderunnerRequest, renderRequest, coderunnerResponse, ImageResponse
 
 router = APIRouter()
@@ -54,5 +54,13 @@ async def render(request: renderRequest) -> ImageResponse:
         theme = request.theme
         data = await render_code(code, theme)
         return Response(content=data, media_type="image/png")
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@router.get("/themes")
+async def themes() -> list[str]:
+    try:
+        return get_themes()
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
