@@ -1,10 +1,10 @@
 import os
 import requests
 from loguru import logger
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from bardapi import Bard
 
-load_dotenv()
+# load_dotenv()
 token = os.environ.get("BARD_TOKEN")
 
 session = requests.Session()
