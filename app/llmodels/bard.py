@@ -1,7 +1,6 @@
 import os
 import requests
 from loguru import logger
-from dotenv import load_dotenv
 from bardapi import Bard
 
 # load_dotenv()
