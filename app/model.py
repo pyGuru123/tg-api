@@ -32,3 +32,9 @@ class sanatanResponse(BaseModel):
 	sunset: str
 	shloka: str
 	importance: str
+
+class llmRequest(BaseModel):
+	prompt: str
+
+class llmResponse(BaseModel):
+	response: str
