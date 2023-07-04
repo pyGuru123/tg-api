@@ -9,6 +9,7 @@ if platform.system() == "Windows":
     load_dotenv()
 
 token = os.environ.get("BARD_TOKEN")
+logger.info(f"{token=}")
 session = requests.Session()
 session.headers = {
             "Host": "bard.google.com",
