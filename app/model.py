@@ -38,3 +38,6 @@ class llmRequest(BaseModel):
 
 class llmResponse(BaseModel):
 	response: str
+
+class youtubeRequest(BaseModel):
+	url: str

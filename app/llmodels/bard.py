@@ -1,12 +1,14 @@
 import os
+import platform
 import requests
 from loguru import logger
-# from dotenv import load_dotenv
 from bardapi import Bard
 
-# load_dotenv()
-token = os.environ.get("BARD_TOKEN")
+if platform.system() == "Windows":
+    from dotenv import load_dotenv
+    load_dotenv()
 
+token = os.environ.get("BARD_TOKEN")
 session = requests.Session()
 session.headers = {
             "Host": "bard.google.com",
