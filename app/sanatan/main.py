@@ -5,14 +5,17 @@ from bs4 import BeautifulSoup
 
 from app.model import sanatanResponse
 
+
 def todays_date():
     today = datetime.today()
     return today.strftime("%d %B, %Y")
+
 
 def process_text(text):
     text = re.sub(r"\s+", " ", text.strip())
     text = text.strip().replace("\xa0", " ")
     return text
+
 
 async def gitapress_data() -> sanatanResponse:
     url = "https://www.gitapress.org/"
@@ -39,7 +42,7 @@ async def gitapress_data() -> sanatanResponse:
         "sunrise": sunrise,
         "sunset": sunset,
         "shloka": shloka,
-        "importance": importance
+        "importance": importance,
     }
 
     return data_dict

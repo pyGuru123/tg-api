@@ -34,5 +34,5 @@ STYLES = {
     "polaroid": Style.POLAROID,
     "sketch": Style.SKETCH,
     "chromatic": Style.CHROMATIC,
-    "popart": Style.POP_ART
+    "popart": Style.POP_ART,
 }

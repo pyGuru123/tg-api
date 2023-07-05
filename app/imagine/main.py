@@ -4,6 +4,7 @@ from app.imagine.styles import STYLES
 
 imagine_engine = Imagine()
 
+
 def get_style(style):
     try:
         return STYLES[style]
@@ -22,7 +23,7 @@ async def imagine(prompt: str, style: str, upscale: bool) -> bytes:
         prompt=prompt,
         style=style,
         ratio=Ratio.RATIO_16X9,
-        negative="ugly, deformed, disfigured, low-quality, distorted, revolting, abhorrent, horrid, unseemly, unsightly, off-putting, unsatisfactory, second-rate, mediocre, lousy, poor-quality"
+        negative="ugly, deformed, disfigured, low-quality, distorted, revolting, abhorrent, horrid, unseemly, unsightly, off-putting, unsatisfactory, second-rate, mediocre, lousy, poor-quality",
     )
 
     if img_data is None:

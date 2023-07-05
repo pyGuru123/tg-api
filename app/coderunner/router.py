@@ -4,10 +4,18 @@ from typing import Union
 
 from app.coderunner.main import execute_code
 from app.coderunner.main import plot_graph
+from app.coderunner.main import pastebin
 from app.coderunner.main import render_code, get_themes
-from app.model import coderunnerRequest, renderRequest, coderunnerResponse, ImageResponse
+from app.model import (
+    coderunnerRequest,
+    renderRequest,
+    coderunnerResponse,
+    ImageResponse,
+    pastebinRequest,
+)
 
 router = APIRouter()
+
 
 @router.post("/execute")
 async def execute(request: coderunnerRequest) -> coderunnerResponse:
@@ -16,19 +24,14 @@ async def execute(request: coderunnerRequest) -> coderunnerResponse:
         output = await execute_code(code)
 
         return coderunnerResponse(
-            message= "success",
-            code= code,
-            output= output,
-            error= "",
+            message="success",
+            code=code,
+            output=output,
+            error="",
         )
 
     except Exception as e:
-        return coderunnerResponse(
-            message= "error",
-            code= code,
-            output= "",
-            error= str(e)
-        )
+        return coderunnerResponse(message="error", code=code, output="", error=str(e))
 
 
 @router.post("/plot")
@@ -39,12 +42,23 @@ async def plot(request: coderunnerRequest) -> Union[ImageResponse, coderunnerRes
 
         return Response(content=data, media_type="image/png")
     except Exception as e:
+        return coderunnerResponse(message="error", code=code, output="", error=str(e))
+
+
+@router.post("/paste")
+async def paste(request: pastebinRequest) -> coderunnerResponse:
+    try:
+        code = request.code
+        title = request.title
+        output = await pastebin(code, title)
         return coderunnerResponse(
-            message= "error",
-            code= code,
-            output= "",
-            error= str(e)
+            message="success",
+            code=code,
+            output=output,
+            error="",
         )
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
 
 @router.post("/render")

@@ -7,37 +7,50 @@ class ImagineRequest(BaseModel):
     style: str
     upscale: Optional[bool] = False
 
+
 class ImageResponse(BaseModel):
-	image: bytes
+    image: bytes
+
 
 class coderunnerRequest(BaseModel):
-	code: str
-	lang: Optional[str] = "python"
+    code: str
+    lang: Optional[str] = "python"
+
 
 class renderRequest(BaseModel):
-	code: str
-	theme: Optional[str] = "dark-plus"
+    code: str
+    theme: Optional[str] = "dark-plus"
+
+
+class pastebinRequest(BaseModel):
+    code: str
+    title: str
+
 
 class coderunnerResponse(BaseModel):
-	message: str
-	code: str
-	output: str
-	error: str
+    message: str
+    code: str
+    output: str
+    error: str
+
 
 class sanatanResponse(BaseModel):
-	message: str
-	error: str
-	date: str
-	sunrise: str
-	sunset: str
-	shloka: str
-	importance: str
+    message: str
+    error: str
+    date: str
+    sunrise: str
+    sunset: str
+    shloka: str
+    importance: str
+
 
 class llmRequest(BaseModel):
-	prompt: str
+    prompt: str
+
 
 class llmResponse(BaseModel):
-	response: str
+    response: str
+
 
 class youtubeRequest(BaseModel):
-	url: str
+    url: str

@@ -8,9 +8,7 @@ from app.llmodels.router import router as LLMRouter
 
 from app.llmodels.bard import session
 
-app = FastAPI(
-		title="tg-api"
-	)
+app = FastAPI(title="tg-api")
 
 
 # --------------------------------------------------------------------------
@@ -26,9 +24,8 @@ app.include_router(sanatanRouter, prefix="/api/v1/sanatan", tags=["sanatan"])
 
 @app.get("/", tags=["Root"])
 async def read_root():
-	return {
-		"message": "Official @pyguru telegram api"
-	}
+    return {"message": "Official @pyguru telegram api"}
+
 
 @app.on_event("shutdown")
 def shutdown_event():
