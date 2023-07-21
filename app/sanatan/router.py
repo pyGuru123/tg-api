@@ -1,8 +1,9 @@
 from fastapi import APIRouter
 from typing import Union
 
-from app.model import sanatanResponse
+from app.model import sanatanResponse, ImageUrlResponse
 from app.sanatan.main import gitapress_data, todays_date
+from app.sanatan.mahadev import get_mahadev_pic
 
 router = APIRouter()
 
@@ -25,3 +26,10 @@ async def today() -> sanatanResponse:
             shloka="",
             importance="",
         )
+
+@router.get("/mahadev")
+async def mahadev() -> ImageUrlResponse:
+    url = get_mahadev_pic()
+    return ImageUrlResponse(
+        url=url
+    )

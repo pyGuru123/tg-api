@@ -52,5 +52,5 @@ class llmResponse(BaseModel):
     response: str
 
 
-class youtubeRequest(BaseModel):
+class ImageUrlResponse(BaseModel):
     url: str

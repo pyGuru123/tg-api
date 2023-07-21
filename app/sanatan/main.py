@@ -1,13 +1,15 @@
 import re
+import pytz
 import requests
 from datetime import datetime
 from bs4 import BeautifulSoup
 
 from app.model import sanatanResponse
 
+indian_tz = pytz.timezone('Asia/Kolkata')
 
 def todays_date():
-    today = datetime.today()
+    today = datetime.now(indian_tz)
     return today.strftime("%d %B, %Y")
 
 
