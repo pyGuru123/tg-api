@@ -1,8 +1,5 @@
 {
   "version": 2,
-  "functions": {
-    "timeout": 30
-  },
   "builds": [
     {"src": "/app/api.py", "use": "@vercel/python"}
   ],
