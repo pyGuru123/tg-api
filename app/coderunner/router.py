@@ -19,6 +19,7 @@ router = APIRouter()
 
 @router.post("/execute")
 async def execute(request: coderunnerRequest) -> coderunnerResponse:
+    """Takes in piece of any valid python code and returns it output"""
     try:
         code = request.code
         output = await execute_code(code)
@@ -36,6 +37,14 @@ async def execute(request: coderunnerRequest) -> coderunnerResponse:
 
 @router.post("/plot")
 async def plot(request: coderunnerRequest) -> Union[ImageResponse, coderunnerResponse]:
+    """Takes in code to plot graph using matplotlib and numpy\n
+       Example:\n
+
+       x = [1, 2, 3]\n
+       y = [1, 4, 9]\n
+       plt.plot(x, y)\n
+    """
+
     try:
         code = request.code
         data = await plot_graph(code)
