@@ -57,3 +57,16 @@ class simpleResponse(BaseModel):
 
 class ImageUrlResponse(BaseModel):
     url: str
+
+class gitaRequest(BaseModel):
+    chapter: int
+    verse: int
+
+class gitaResponse(BaseModel):
+    meaning: str
+    text: str
+    verse_number: str
+    word_meanings: str
+    transliteration: str
+    hindi_meaning: str
+    hindi_word_meanings: str
