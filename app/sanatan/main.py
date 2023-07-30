@@ -48,3 +48,8 @@ async def gitapress_data() -> sanatanResponse:
     }
 
     return data_dict
+
+async def translate_text(text: str):
+    url = f"https://api.pawan.krd/gtranslate?from=detect&to=sa&text={text}"
+    response = requests.get(url)
+    return response.json()

@@ -4,7 +4,7 @@ from typing import Union
 
 from app.model import sanatanResponse, ImageUrlResponse
 from app.model import gitaRequest, gitaResponse
-from app.sanatan.main import gitapress_data, todays_date
+from app.sanatan.main import gitapress_data, todays_date, translate_text
 from app.sanatan.mahadev import get_mahadev_pic
 
 router = APIRouter()
@@ -39,15 +39,27 @@ async def mahadev() -> ImageUrlResponse:
         url=url
     )
 
+
+@router.get("/translate")
+async def translate(text: str):
+    try:
+        return await translate_text(text)
+    except:
+        return {
+            "status": "failed"
+        }
+
 @router.get("/gita/chapters")
 async def chapters():
     return gita["chapters"]
+
 
 @router.get("/gita/verse_count")
 async def verse_count():
     return {
         int(chapter) : gita["chapters"][chapter]["verses_count"] for chapter in gita["chapters"]
     }
+
 
 @router.post("/gita/verse")
 async def verse(request: gitaRequest) -> gitaResponse:
@@ -59,3 +71,4 @@ async def verse(request: gitaRequest) -> gitaResponse:
         return gitaResponse(**data)
     except:
         raise HTTPException(status_code=404, detail="verse not found")
+
