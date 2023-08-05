@@ -47,13 +47,20 @@ class sanatanResponse(BaseModel):
 class simpleRequest(BaseModel):
     query: str
 
-
 class simpleResponse(BaseModel):
     message: str
     query: str
     content: str
     error: str
 
+class llmRequest(BaseModel):
+    prompt: str
+
+class llmResponse(BaseModel):
+    message: str
+    prompt: str
+    content: str
+    error: str
 
 class ImageUrlResponse(BaseModel):
     url: str
