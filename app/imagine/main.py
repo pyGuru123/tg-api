@@ -1,5 +1,10 @@
 import time
 import requests
+from app.imagine.models import (
+    get_model,
+    all_models,
+    get_model_tensor
+)
 
 def is_success(response: dict):
   return response.json()["status"] == "succeeded"
@@ -13,11 +18,11 @@ async def poll_api(url, success_condition, step=1, timeout=20):
         time.sleep(step)
     raise TimeoutError("API request did not succeed within timeout")
 
-async def imagine(prompt: str, upscale: bool) -> bytes:
+async def imagine(prompt: str, model: str, upscale: bool) -> bytes:
     try:
-        timeout = 20
         prompt = "+".join(prompt.split(" "))
-        endpoint = f"https://api.prodia.com/generate?new=true&prompt={prompt}&model=dreamshaper_8.safetensors+%5B9d40847d%5D&\
+        model = get_model_tensor(model)
+        endpoint = f"https://api.prodia.com/generate?new=true&prompt={prompt}&model={model}&\
                     negative_prompt=&steps=25&cfg=7&seed=2280986900&sampler=DPM%2B%2B+2M+Karras&aspect_ratio=square"
         response = requests.get(endpoint)
         job_id = response.json()["job"]
