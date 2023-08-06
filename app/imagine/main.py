@@ -1,35 +1,32 @@
-from app.imagine.sync_imagine import Imagine
-from app.imagine.constants import Ratio
-from app.imagine.styles import STYLES
+import time
+import requests
 
-imagine_engine = Imagine()
+def is_success(response: dict):
+  return response.json()["status"] == "succeeded"
 
+async def poll_api(url, success_condition, step=1, timeout=20):
+    start_time = time.time()
+    while time.time() - start_time < timeout:
+        response = requests.get(url)
+        if success_condition(response):
+            return True
+        time.sleep(step)
+    raise TimeoutError("API request did not succeed within timeout")
 
-def get_style(style):
+async def imagine(prompt: str, upscale: bool) -> bytes:
     try:
-        return STYLES[style]
-    except Exception:
-        return STYLES["realistic"]
+        timeout = 20
+        prompt = "+".join(prompt.split(" "))
+        endpoint = f"https://api.prodia.com/generate?new=true&prompt={prompt}&model=dreamshaper_8.safetensors+%5B9d40847d%5D&\
+                    negative_prompt=&steps=25&cfg=7&seed=2280986900&sampler=DPM%2B%2B+2M+Karras&aspect_ratio=square"
+        response = requests.get(endpoint)
+        job_id = response.json()["job"]
 
-
-async def all_styles() -> list[str]:
-    return list(STYLES.keys())
-
-
-async def imagine(prompt: str, style: str, upscale: bool) -> bytes:
-    style = get_style(style)
-
-    img_data = imagine_engine.sdprem(
-        prompt=prompt,
-        style=style,
-        ratio=Ratio.RATIO_16X9,
-        negative="ugly, deformed, disfigured, low-quality, distorted, revolting, abhorrent, horrid, unseemly, unsightly, off-putting, unsatisfactory, second-rate, mediocre, lousy, poor-quality",
-    )
-
-    if img_data is None:
-        raise Exception("An error occurred while generating the image")
-
-    if upscale:
-        img_data = imagine.upscale(image=img_data)
-
-    return img_data
+        url = f"https://api.prodia.com/job/{job_id}"
+        response = await poll_api(url, is_success)
+        if response:
+            url = f"https://images.prodia.xyz/{job_id}.png?download=1"
+            response = requests.get(url)
+            return response.content
+    except Exception as e:
+        return str(e)

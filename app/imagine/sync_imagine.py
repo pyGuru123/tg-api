@@ -5,6 +5,9 @@ from langdetect import detect
 
 from .constants import *
 
+from app.imagine.constants import Ratio
+from app.imagine.styles import STYLES
+
 
 def validate_cfg(cfg: float) -> str:
     """Validates the cfg parameter."""
@@ -206,3 +209,33 @@ class Imagine:
         return self._request(
             method="POST", url=f"{self.api}/controlnet", data=multi, headers=headers
         ).content
+
+
+def get_style(style):
+    try:
+        return STYLES[style]
+    except Exception:
+        return STYLES["realistic"]
+
+
+async def all_styles() -> list[str]:
+    return list(STYLES.keys())
+
+
+async def imagine(prompt: str, style: str, upscale: bool) -> bytes:
+    style = get_style(style)
+
+    img_data = imagine_engine.sdprem(
+        prompt=prompt,
+        style=style,
+        ratio=Ratio.RATIO_16X9,
+        negative="ugly, deformed, disfigured, low-quality, distorted, revolting, abhorrent, horrid, unseemly, unsightly, off-putting, unsatisfactory, second-rate, mediocre, lousy, poor-quality",
+    )
+
+    if img_data is None:
+        raise Exception("An error occurred while generating the image")
+
+    if upscale:
+        img_data = imagine.upscale(image=img_data)
+
+    return img_data

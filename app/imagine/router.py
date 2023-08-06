@@ -3,7 +3,7 @@ from typing import Union
 from fastapi.responses import Response
 
 from app.model import ImagineRequest, ImageResponse
-from app.imagine.main import imagine, all_styles
+from app.imagine.main import imagine
 
 router = APIRouter()
 
@@ -12,9 +12,9 @@ router = APIRouter()
 async def generate(request: ImagineRequest) -> Union[ImageResponse, dict]:
     try:
         prompt = request.prompt
-        style = request.style
+        # style = request.style
         upscale = request.upscale
-        data = await imagine(prompt, style, upscale)
+        data = await imagine(prompt, upscale)
 
         return Response(
             content=data, media_type="image/png", headers={"prompt": prompt}

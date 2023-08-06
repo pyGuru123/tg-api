@@ -4,7 +4,7 @@ from typing import Optional
 
 class ImagineRequest(BaseModel):
     prompt: str
-    style: str
+    # style: str
     upscale: Optional[bool] = False
 
 

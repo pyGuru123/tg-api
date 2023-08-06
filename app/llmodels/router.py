@@ -54,7 +54,7 @@ async def bard(request: llmRequest) -> llmResponse:
         )
 
 @router.post("/llama")
-async def gpt(request: llmRequest) -> llmResponse:
+async def llama(request: llmRequest) -> llmResponse:
     """Search newly released Meta Lllama2""" 
     try:
         prompt = request.prompt
