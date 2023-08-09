@@ -5,7 +5,7 @@ from typing import Optional
 class ImagineRequest(BaseModel):
     prompt: str
     model: Optional[str] = ""
-    upscale: Optional[bool] = False
+    secret_key: Optional[str]
 
 
 class ImageResponse(BaseModel):

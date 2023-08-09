@@ -1,6 +1,6 @@
 import time
 import requests
-from app.imagine.models import (
+from app.imagegen.models import (
     get_model,
     all_models,
     get_model_tensor
@@ -18,12 +18,15 @@ async def poll_api(url, success_condition, step=1, timeout=20):
         time.sleep(step)
     raise TimeoutError("API request did not succeed within timeout")
 
-async def imagine(prompt: str, model: str, upscale: bool) -> bytes:
+async def imagine(prompt: str, model: str) -> bytes:
+    negatives = "ugly, tiling, poorly drawn hands, poorly drawn feet, poorly drawn face, out of frame, extra limbs,\
+             disfigured, deformed, body out of frame, blurry, bad anatomy, blurred, watermark, grainy,\
+              signature, cut off, draft".replace(",", "%2C").replace(" ", "+")
     try:
         prompt = "+".join(prompt.split(" "))
         model = get_model_tensor(model)
         endpoint = f"https://api.prodia.com/generate?new=true&prompt={prompt}&model={model}&\
-                    negative_prompt=&steps=25&cfg=7&seed=2280986900&sampler=DPM%2B%2B+2M+Karras&aspect_ratio=square"
+                    negative_prompt={negatives}&steps=25&cfg=7&seed=2280986900&sampler=DPM%2B%2B+2M+Karras&aspect_ratio=square"
         response = requests.get(endpoint)
         job_id = response.json()["job"]
 

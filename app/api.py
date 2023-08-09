@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from loguru import logger
 
-from app.imagine.router import router as ImagineRouter
+from app.imagegen.router import router as ImagineRouter
 from app.coderunner.router import router as CodeRunnerRouter
 from app.sanatan.router import router as SanatanRouter
 from app.llmodels.router import router as LLMRouter
