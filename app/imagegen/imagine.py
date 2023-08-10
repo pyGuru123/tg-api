@@ -9,7 +9,7 @@ from app.imagegen.models import (
 def is_success(response: dict):
   return response.json()["status"] == "succeeded"
 
-async def poll_api(url, success_condition, step=1, timeout=20):
+async def poll_api(url, success_condition, step=1, timeout=30):
     start_time = time.time()
     while time.time() - start_time < timeout:
         response = requests.get(url)

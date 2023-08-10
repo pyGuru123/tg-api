@@ -16,7 +16,7 @@ def is_success(response: dict):
     return "<?xml" not in response.text
 
 
-async def poll_image(url, success_condition, step=3, timeout=30):
+async def poll_image(url, success_condition, step=3, timeout=60):
     start_time = time.time()
     while time.time() - start_time < timeout:
         response = requests.get(url)
