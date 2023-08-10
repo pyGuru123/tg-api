@@ -9,7 +9,10 @@ if platform.system() == "Windows":
 
     load_dotenv()
 
-token = os.environ.get("BARD_TOKEN")
+PSID=os.environ.get("BARD_1PSID")
+PSIDTS=os.environ.get("BARD_1PSIDTS")
+PSIDCC=os.environ.get("BARD_1PSIDCC")
+
 session = requests.Session()
 session.headers = {
     "Host": "bard.google.com",
@@ -19,9 +22,11 @@ session.headers = {
     "Origin": "https://bard.google.com",
     "Referer": "https://bard.google.com/",
 }
-session.cookies.set("__Secure-1PSID", token)
+session.cookies.set("__Secure-1PSID", PSID)
+session.cookies.set("__Secure-1PSIDTS", PSIDTS)
+session.cookies.set("__Secure-1PSIDCC", PSIDCC)
 
-bard = Bard(token=token, session=session, timeout=30)
+bard = Bard(token=PSID, session=session, timeout=30)
 
 
 async def ask_bard(prompt: str):
