@@ -32,26 +32,26 @@ async def gpt(request: llmRequest) -> llmResponse:
             error=str(e)
         )
 
-@router.post("/bard")
-async def bard(request: llmRequest) -> llmResponse:
-    """Search Google Bard in a sessioned state"""
-    try:
-        prompt = request.prompt
-        data = await ask_bard(prompt)
+# @router.post("/bard")
+# async def bard(request: llmRequest) -> llmResponse:
+#     """Search Google Bard in a sessioned state"""
+#     try:
+#         prompt = request.prompt
+#         data = await ask_bard(prompt)
 
-        return llmResponse(
-            message="success",
-            prompt=prompt,
-            content=data,
-            error=""
-        )
-    except Exception as e:
-        return llmResponse(
-            message="error",
-            prompt=prompt,
-            content="",
-            error=str(e)
-        )
+#         return llmResponse(
+#             message="success",
+#             prompt=prompt,
+#             content=data,
+#             error=""
+#         )
+#     except Exception as e:
+#         return llmResponse(
+#             message="error",
+#             prompt=prompt,
+#             content="",
+#             error=str(e)
+#         )
 
 @router.post("/llama")
 async def llama(request: llmRequest) -> llmResponse:

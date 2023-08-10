@@ -26,7 +26,7 @@ session.cookies.set("__Secure-1PSID", PSID)
 session.cookies.set("__Secure-1PSIDTS", PSIDTS)
 session.cookies.set("__Secure-1PSIDCC", PSIDCC)
 
-bard = Bard(token=PSID, session=session, timeout=30)
+# bard = Bard(token=PSID, session=session, timeout=30)
 
 
 async def ask_bard(prompt: str):
