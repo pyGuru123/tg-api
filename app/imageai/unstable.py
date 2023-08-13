@@ -26,7 +26,7 @@ async def poll_image(url, success_condition, step=3, timeout=60):
     raise TimeoutError("API request did not succeed within timeout")
 
 
-async def unstable_diffusion(prompt: str, model: str, secret_key: str):
+async def unstable_diffusion(prompt: str, model: str="", secret_key: str=""):
     if secret_key != SECRET_KEY:
         raise Exception("You are unauthorised for this endpoint. Contact Author")
 

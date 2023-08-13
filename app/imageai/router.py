@@ -1,12 +1,12 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, UploadFile, File
 from typing import Union
 from loguru import logger
 from fastapi.responses import Response
 
 from app.model import ImagineRequest, ImageResponse
-from app.imagegen.imagine import imagine
-from app.imagegen.models import all_models
-from app.imagegen.unstable import unstable_diffusion
+from app.imageai.imagine import imagine, all_models
+from app.imageai.colorizer import colorize_picture
+from app.imageai.unstable import unstable_diffusion
 
 router = APIRouter()
 
@@ -38,7 +38,6 @@ async def unstable_engine(request: ImagineRequest) -> Union[ImageResponse, dict]
         secret_key = request.secret_key
 
         data = await unstable_diffusion(prompt, model, secret_key)
-        logger.info(f"{data=}")
 
         return Response(
             content=data, media_type="image/png", headers={"prompt": prompt}
@@ -46,3 +45,16 @@ async def unstable_engine(request: ImagineRequest) -> Union[ImageResponse, dict]
     except Exception as e:
         return {"message": "error", "prompt": prompt, "content": None, "error": str(e)}
 
+@router.post("/colorize")
+async def unstable_engine(file: UploadFile = File(...)) -> Union[ImageResponse, dict]:
+    try:
+        content = await file.read()
+        filename = file.filename
+
+        data = await colorize_picture(filename, content)
+
+        return Response(
+            content=data, media_type="image/png"
+        )
+    except Exception as e:
+        return {"message": "error", "content": None, "error": str(e)}
