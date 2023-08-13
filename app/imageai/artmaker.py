@@ -31,7 +31,7 @@ ARTMAKER_MODELS = {
 
 def get_art_maker_model(model):
     if not model:
-        return get_model("concept2")
+        return ARTMAKER_MODELS.get("concept2", "")
 
     return ARTMAKER_MODELS.get(model, [142, "Portrait Concept Art 2"])
 
@@ -47,7 +47,7 @@ async def art_maker(prompt: str, model: ""):
 
 	payload = {
 	    "seedValue": -1,
-	    "inputText": "cute looking girl portrait",
+	    "inputText": prompt,
 	    "width": 512,
 	    "height": 512,
 	    "styleId": style_id,

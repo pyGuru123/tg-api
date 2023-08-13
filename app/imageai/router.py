@@ -43,7 +43,6 @@ async def artmaker_engine(request: ImagineRequest) -> Union[ImageResponse, dict]
     try:
         prompt = request.prompt
         model = request.model
-        secret_key = request.secret_key
 
         data = await art_maker(prompt, model)
 
