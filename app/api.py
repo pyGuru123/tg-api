@@ -8,7 +8,7 @@ from app.llmodels.router import router as LLMRouter
 from app.search.router import router as SearchRouter
 from app.openspace.router import router as SpaceRouter
 
-from app.llmodels.bard import session
+# from app.llmodels.bard import session
 
 app = FastAPI(title="tg-api")
 
@@ -34,5 +34,5 @@ async def read_root():
 @app.on_event("shutdown")
 def shutdown_event():
     logger.info("Application is shutting down")
-    session.close()
+    # session.close()
     logger.info("Application shutdown successfully")
