@@ -1,5 +1,5 @@
-from pydantic import BaseModel
 from typing import Optional
+from pydantic import BaseModel, Field
 
 
 class ImagineRequest(BaseModel):
@@ -64,6 +64,10 @@ class llmResponse(BaseModel):
 
 class ImageUrlResponse(BaseModel):
     url: str
+
+class SmmFakerRequest(BaseModel):
+    post_url: str
+    views : int = Field(..., description="An integer value", ge=1, le=1000)
 
 class gitaRequest(BaseModel):
     chapter: int

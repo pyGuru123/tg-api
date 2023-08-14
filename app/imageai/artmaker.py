@@ -63,6 +63,5 @@ async def art_maker(prompt: str, model: ""):
 
 	response = requests.request("POST", endpoint, headers=headers, data=payload)
 	image_url = response.text.strip('"')
-	logger.info(image_url)
 	img_response = requests.get(image_url)
 	return img_response.content
