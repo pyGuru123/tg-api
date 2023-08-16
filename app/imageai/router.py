@@ -7,6 +7,7 @@ from app.model import ImagineRequest, ImageResponse
 from app.imageai.imagine import imagine, imagine_all_models
 from app.imageai.unstable import unstable_diffusion
 from app.imageai.artmaker import art_maker, artmaker_all_models
+from app.imageai.removebg import remove_background
 from app.imageai.colorizer import (
     colorize_picture,
     restore_picture
@@ -104,3 +105,16 @@ async def restore_engine(file: UploadFile = File(...), withScratch: bool = File(
         )
     except Exception as e:
         return {"message": "error", "content": None, "error": str(e)}
+
+@router.post("/removebg")
+async def removebg_engine(file: UploadFile = File(...)) -> Union[ImageResponse, dict]:
+    # try:
+        content = await file.read()
+
+        data = await remove_background(content)
+
+        return Response(
+            content=data, media_type="image/png"
+        )
+    # except Exception as e:
+    #     return {"message": "error", "content": None, "error": str(e)}
