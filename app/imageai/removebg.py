@@ -1,27 +1,24 @@
 import json
+import io
 import base64
 import requests
 from loguru import logger
 
 async def remove_background(content):
-    endpoint = "https://backend.zyro.com/v1/ai/remove-background"
     base64_image = base64.b64encode(content).decode('utf-8')
 
     payload = json.dumps({
-        'image': "data:image/png;base64," + base64_image,
+        'image': "data:image/PNG;base64," + base64_image,
     })
-
-    logger.info(payload[:300])
 
     headers = {
       'Content-Type': 'application/json'
     }
 
+    endpoint = "https://backend.zyro.com/v1/ai/remove-background"
     response = requests.request("POST", endpoint, data=payload, headers=headers)
     b64_string = response.json()['result']
-    b64_string = b64_string + '=' * (4 - len(b64_string) % 4)
-    decoded_binary_data = base64.b64decode(b64_string)
-    with open('restored_image.jpg', 'wb') as image_file:
-        image_file.write(decoded_binary_data)
-
-    return "hahaha"
+    encoded_string = b64_string.strip().split(",")[1]
+    b64_bytes = encoded_string.encode('utf-8')
+    decoded_image = base64.decodebytes(b64_bytes)
+    return decoded_image

@@ -79,6 +79,7 @@ async def unstable_engine(request: ImagineRequest) -> Union[ImageResponse, dict]
 
 @router.post("/colorize")
 async def colorize_engine(file: UploadFile = File(...)) -> Union[ImageResponse, dict]:
+    """Colorize old black & white photos with this ai tool seamlessly"""
     try:
         content = await file.read()
         filename = file.filename
@@ -94,6 +95,7 @@ async def colorize_engine(file: UploadFile = File(...)) -> Union[ImageResponse, 
 
 @router.post("/restore")
 async def restore_engine(file: UploadFile = File(...), withScratch: bool = File(...)) -> Union[ImageResponse, dict]:
+    """Restore old images, remove scratches from them using this ai tool"""
     try:
         content = await file.read()
         filename = file.filename
@@ -108,13 +110,13 @@ async def restore_engine(file: UploadFile = File(...), withScratch: bool = File(
 
 @router.post("/removebg")
 async def removebg_engine(file: UploadFile = File(...)) -> Union[ImageResponse, dict]:
-    # try:
+    """Remove background from images seamlessly with this ai tool"""
+    try:
         content = await file.read()
-
         data = await remove_background(content)
 
         return Response(
             content=data, media_type="image/png"
         )
-    # except Exception as e:
-    #     return {"message": "error", "content": None, "error": str(e)}
+    except Exception as e:
+        return {"message": "error", "content": None, "error": str(e)}
