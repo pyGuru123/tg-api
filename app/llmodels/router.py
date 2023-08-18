@@ -5,7 +5,7 @@ from loguru import logger
 
 from app.model import llmRequest, llmResponse
 from app.llmodels.bard import ask_bard
-from app.llmodels.chimera import ask_gpt, ask_llama
+from app.llmodels.llm import ask_gpt, ask_llama
 
 router = APIRouter()
 
