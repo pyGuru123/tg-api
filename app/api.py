@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from loguru import logger
 
 from app.imageai.router import router as ImagineRouter
+from app.photorai.router import router as PhotoRouter
 from app.coderunner.router import router as CodeRunnerRouter
 from app.sanatan.router import router as SanatanRouter
 from app.llmodels.router import router as LLMRouter
@@ -18,6 +19,7 @@ app = FastAPI(title="tg-api")
 #                                Routers
 
 app.include_router(ImagineRouter, prefix="/api/v1/imageai", tags=["imageai"])
+app.include_router(PhotoRouter, prefix="/api/v1/photorai", tags=["photorai"])
 app.include_router(LLMRouter, prefix="/api/v1/llmodels", tags=["llmodel"])
 app.include_router(CodeRunnerRouter, prefix="/api/v1/coderunner", tags=["coderunner"])
 app.include_router(SmmFakerRouter, prefix="/api/v1/smmfaker", tags=["smmfaker"])
