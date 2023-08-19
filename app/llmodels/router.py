@@ -5,7 +5,7 @@ from loguru import logger
 
 from app.model import llmRequest, llmResponse
 from app.llmodels.bard import ask_bard
-from app.llmodels.llm import ask_gpt, ask_llama
+from app.llmodels.llm import ask_gpt, ask_llama, ask_bai
 
 router = APIRouter()
 
@@ -59,6 +59,28 @@ async def llama(request: llmRequest) -> llmResponse:
     try:
         prompt = request.prompt
         data = await ask_llama(prompt)
+
+        return llmResponse(
+            message="success",
+            prompt=prompt,
+            content=data,
+            error=""
+        )
+    except Exception as e:
+        return llmResponse(
+            message="error",
+            prompt=prompt,
+            content="",
+            error=str(e)
+        )
+
+
+@router.post("/bai")
+async def bai(request: llmRequest) -> llmResponse:
+    """Search chatgpt using b.ai interface"""
+    try:
+        prompt = request.prompt
+        data = await ask_bai(prompt)
 
         return llmResponse(
             message="success",

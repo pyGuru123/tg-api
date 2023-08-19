@@ -15,7 +15,7 @@ CHIMERA_TOKEN = os.environ.get("CHIMERA_TOKEN")
 BAI_ORG_ID = os.environ.get("BAI_ORG_ID")
 BAI_TOKEN = os.environ.get("BAI_TOKEN")
 
-async def ask_gpt(prompt: str):
+async def ask_bai(prompt: str):
     req_rand = random.randint(100000, 999999)
     url = f"https://beta.theb.ai/api/conversation?org_id={BAI_ORG_ID}&req_rand=0.397137{req_rand}"
 
@@ -33,19 +33,28 @@ async def ask_gpt(prompt: str):
     }
 
     response = requests.request("POST", url, headers=headers, data=payload)
-
     data = response.text
-    result = ""
+    data = data.split("event: ")
+    response = data[-2].strip('update\r\ndata: {"content": ""').strip().strip("}").strip('"')
+    return response
+    
 
-    for line in data.strip().split('\n'):
-        if line.startswith("data:"):
-            content = line.split(":")
-            if len(content) > 2:
-                text = content[2].strip()
-                if text:
-                    result = text
+async def ask_gpt(prompt: str):
+    payload = {
+      "model": "gpt-3.5-turbo-16k",
+      "max_tokens": 2000,
+      "messages": [
+        {"role": "user", "content": prompt}
+      ]
+    }
 
-    return result.strip('"').strip("}").strip('"')
+    headers = {
+      "Authorization": "Bearer " + CHIMERA_TOKEN,
+      "Content-Type": "application/json"
+    }
+
+    response = requests.post(CHIMERA_ENDPOINT, json=payload, headers=headers)
+    return response.json()["choices"][0]["message"]["content"]
 
 
 async def ask_llama(prompt: str):
