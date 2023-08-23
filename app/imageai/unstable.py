@@ -12,6 +12,22 @@ if platform.system() == "Windows":
 token = os.environ.get("UNSTABLE")
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
+UNSTABLE_MODELS = {
+    "digital": ["digital-art","digital-art"],
+    "generalist": ["generalist", "generalist"],
+    "anime": ["anime", "anime-base"],
+    "photo": ["realistic", "realistic-photo"]
+}
+
+def get_unstable_model(model):
+    if not model:
+        return UNSTABLE_MODELS["digital"]
+
+    return UNSTABLE_MODELS.get(model, ["digital-art","digital-art"])
+
+async def unstable_all_models():
+    return list(UNSTABLE_MODELS.keys())
+
 def is_success(response: dict):
     return "<?xml" not in response.text
 
@@ -30,12 +46,15 @@ async def unstable_diffusion(prompt: str, model: str="", secret_key: str=""):
     if secret_key != SECRET_KEY:
         raise Exception("You are unauthorised for this endpoint. Contact Author")
 
+    genre, style = get_unstable_model(model)
+    logger.info(f"{genre=}, {style=}")
+
     url = "https://www.unstability.ai/api/submitPrompt"
     json = {
         "admin": False,
         "fingerprint": token,
-        "genre": "digital-art",
-        "style": "digital-art",
+        "genre": genre,
+        "style": style,
         "prompt": prompt,
         "negative_prompt": "ugly, tiling, poorly drawn hands, poorly drawn feet, poorly drawn face, out of frame, extra limbs, disfigured, deformed, body out of frame, blurry, bad anatomy, blurred, watermark, grainy, signature, cut off, draft",
         "aspect_ratio": "1:1",

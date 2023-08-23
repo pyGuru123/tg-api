@@ -5,7 +5,7 @@ from fastapi.responses import Response
 
 from app.model import ImagineRequest, ImageResponse
 from app.imageai.imagine import imagine, imagine_all_models
-from app.imageai.unstable import unstable_diffusion
+from app.imageai.unstable import unstable_diffusion, unstable_all_models
 from app.imageai.artmaker import art_maker, artmaker_all_models
 
 router = APIRouter()
@@ -28,7 +28,7 @@ async def imagine_engine(request: ImagineRequest) -> Union[ImageResponse, dict]:
 
 @router.get("/imagine/models")
 async def imagine_models() -> dict:
-    """Returns a list of endpoints that can be used with /imagine endpoint"""
+    """Returns a list of models that can be used with /imagine endpoint"""
     return {"message": "success", "models": await imagine_all_models()}
 
 
@@ -50,7 +50,7 @@ async def artmaker_engine(request: ImagineRequest) -> Union[ImageResponse, dict]
 
 @router.get("/artmaker/models")
 async def artmaker_models() -> dict:
-    """Returns a list of endpoints that can be used with /imagine endpoint"""
+    """Returns a list of models that can be used with /imagine endpoint"""
     return {"message": "success", "models": await artmaker_all_models()}
 
 
@@ -70,3 +70,8 @@ async def unstable_engine(request: ImagineRequest) -> Union[ImageResponse, dict]
     except Exception as e:
         return {"message": "error", "prompt": prompt, "content": None, "error": str(e)}
 
+
+@router.get("/unstable/models")
+async def unstable_models() -> dict:
+    """Returns a list of models that can be used with /unstable endpoint"""
+    return {"message": "success", "models": await unstable_all_models()}
