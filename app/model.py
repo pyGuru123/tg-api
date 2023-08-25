@@ -81,3 +81,6 @@ class gitaResponse(BaseModel):
     transliteration: str
     hindi_meaning: str
     hindi_word_meanings: str
+
+class ttsRequest(BaseModel):
+    text: str

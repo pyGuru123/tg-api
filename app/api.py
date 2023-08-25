@@ -9,6 +9,7 @@ from app.llmodels.router import router as LLMRouter
 from app.search.router import router as SearchRouter
 from app.openspace.router import router as SpaceRouter
 from app.smmfaker.router import router as SmmFakerRouter
+from app.speechsyn.router import router as SpeechSynthesisRouter
 
 # from app.llmodels.bard import session
 
@@ -18,14 +19,15 @@ app = FastAPI(title="tg-api")
 # --------------------------------------------------------------------------
 #                                Routers
 
-app.include_router(ImagineRouter, prefix="/api/v1/imageai", tags=["imageai"])
-app.include_router(PhotoRouter, prefix="/api/v1/photorai", tags=["photorai"])
-app.include_router(LLMRouter, prefix="/api/v1/llmodels", tags=["llmodel"])
-app.include_router(CodeRunnerRouter, prefix="/api/v1/coderunner", tags=["coderunner"])
-app.include_router(SmmFakerRouter, prefix="/api/v1/smmfaker", tags=["smmfaker"])
-app.include_router(SpaceRouter, prefix="/api/v1/space", tags=["openspace"])
-app.include_router(SearchRouter, prefix="/api/v1/search", tags=["search"])
-app.include_router(SanatanRouter, prefix="/api/v1/sanatan", tags=["sanatan"])
+app.include_router(ImagineRouter, prefix="/api/v1/imageai", tags=["Image Generation"])
+app.include_router(PhotoRouter, prefix="/api/v1/photorai", tags=["Picture Editing AI"])
+app.include_router(LLMRouter, prefix="/api/v1/llmodels", tags=["Large Language Models"])
+app.include_router(CodeRunnerRouter, prefix="/api/v1/coderunner", tags=["Code Runner"])
+# app.include_router(SmmFakerRouter, prefix="/api/v1/smmfaker", tags=["smmfaker"])
+app.include_router(SpeechSynthesisRouter, prefix="/api/v1/synthesis", tags=["Speech Synthesis"])
+app.include_router(SpaceRouter, prefix="/api/v1/space", tags=["Open Space"])
+app.include_router(SearchRouter, prefix="/api/v1/search", tags=["Search Internet"])
+app.include_router(SanatanRouter, prefix="/api/v1/sanatan", tags=["Sanatan Dharma"])
 
 # --------------------------------------------------------------------------
 
