@@ -1,9 +1,29 @@
 import requests
+import urllib.parse
 from loguru import logger
+
+def url_encode(input_string):
+    encoded_string = urllib.parse.quote(input_string, safe='')
+    return encoded_string
+
+async def get_trackers():
+	trackers = [
+		"udp://glotorrents.pw:6969/announce",
+		"udp://tracker.opentrackr.org:1337/announce",
+		"udp://torrent.gresille.org:80/announce",
+		"udp://tracker.openbittorrent.com:80",
+		"udp://tracker.coppersurfer.tk:6969",
+		"udp://tracker.leechers-paradise.org:6969",
+		"udp://p4p.arenabg.ch:1337",
+		"udp://tracker.internetwarriors.net:1337",
+	]
+
+	url_encoded_trackers = "&tr=".join(map(lambda tracker: url_encode(tracker), trackers))
+	return url_encoded_trackers
 
 async def create_magnet(name, hash):
 	name = name.replace(" ", "%20")
-	magnet = f"magnet:?xt=urn:btih:{hash}&dn={name}&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.bittor.pw%3A1337%2Fannounce&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=udp%3A%2F%2Fbt.xxx-tracker.com%3A2710%2Fannounce&tr=udp%3A%2F%2Fpublic.popcorn-tracker.org%3A6969%2Fannounce&tr=udp%3A%2F%2Feddie4.nl%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Fp4p.arenabg.com%3A1337%2Fannounce&tr=udp%3A%2F%2Ftracker.tiny-vps.com%3A6969%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce"
+	magnet = f"magnet:?xt=urn:btih:{hash}&dn={name}&tr={await get_trackers()}"
 	return magnet
 
 async def get_yts_magnet(movie):
@@ -15,12 +35,11 @@ async def get_yts_magnet(movie):
 
 	if all_data['status'] == 'ok':
 		for data in all_data['data']['movies']:
-			logger.info(data['torrents'])
 			for torrent in data["torrents"][:3]:
 				result = {
 					"name": f"{data['title_long']} {torrent['quality']}",
 					"size": torrent["size"],
-					"magnet": await create_magnet(torrent['hash'], data["title_long"])
+					"magnet": await create_magnet(data["title"], torrent['hash'])
 				}
 				result_set.append(result)
 
