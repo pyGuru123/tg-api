@@ -2,8 +2,8 @@
 
 Few APIs for [@pyguru](https://t.me/pyguru) telegram channel.
 
-Base Endpoint : [https://tg-api-pyguru123.vercel.app/](https://tg-api-zehr.onrender.com/) \
-Documentation : [https://tg-api-pyguru123.vercel.app/docs](https://tg-api-zehr.onrender.com/docs)
+Base Endpoint : [https://tg-api-zehr.onrender.com](https://tg-api-zehr.onrender.com/) \
+Documentation : [https://tg-api-zehr.onrender.com/docs](https://tg-api-zehr.onrender.com/docs)
 
 ## Contributions are welcome
 
