@@ -3,6 +3,7 @@ from typing import Union
 from fastapi.responses import Response
 from loguru import logger
 
+from app.model import libgenRequest
 from app.leechers.piratesbay import get_piratesbay_magnets
 from app.leechers.ytsmx import get_yts_magnet
 from app.leechers.libgen import scrape_libgen
@@ -29,12 +30,15 @@ async def ytsmx(movie: str) -> list[dict]:
     except Exception as e:
         raise HTTPException(status_code=404, detail="Unable to fetch magnets")
 
-@router.get("/libgen/{isbn}")
-async def libgen(isbn: str) -> list[dict]:
+@router.post("/libgen")
+async def libgen(request: libgenRequest) -> list[dict]:
     """Get PDF ebook download links directly from libgen"""
     try:
-        isbn = str(isbn).replace(" ", "+")
-        result = await scrape_libgen(isbn)
+        if not (request.isbn or request.book_name):
+            raise HTTPException(status_code=422, detail="Either 'isbn' or 'book_name' must be provided")
+
+        query = str(request.isbn) or str(request.book_name).replace(" ", "+")
+        result = await scrape_libgen(query)
         return result
     except Exception as e:
         raise HTTPException(status_code=404, detail="Unable to fetch pdf links")

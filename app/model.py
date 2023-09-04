@@ -81,3 +81,7 @@ class gitaResponse(BaseModel):
     transliteration: str
     hindi_meaning: str
     hindi_word_meanings: str
+
+class libgenRequest(BaseModel):
+    isbn: Optional[str] = ""
+    book_name: Optional[str] = ""
