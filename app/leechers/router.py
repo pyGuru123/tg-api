@@ -7,6 +7,7 @@ from app.model import libgenRequest
 from app.leechers.piratesbay import get_piratesbay_magnets
 from app.leechers.ytsmx import get_yts_magnet
 from app.leechers.libgen import scrape_libgen
+from app.leechers.nyaasi import get_nyaasi_magnet
 
 
 router = APIRouter()
@@ -26,6 +27,15 @@ async def ytsmx(movie: str) -> list[dict]:
     """Get Magnet Links directly from ytsmx"""
     try:
         result = await get_yts_magnet(movie)
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=404, detail="Unable to fetch magnets")
+
+@router.get("/nyaasi/{movie}")
+async def ytsmx(movie: str) -> list[dict]:
+    """Get Magnet Links directly from nyaa.si"""
+    try:
+        result = await get_nyaasi_magnet(movie)
         return result
     except Exception as e:
         raise HTTPException(status_code=404, detail="Unable to fetch magnets")

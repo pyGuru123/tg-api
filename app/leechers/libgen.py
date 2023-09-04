@@ -46,9 +46,6 @@ async def scrape_libgen(isbn: str):
     if results:
         with concurrent.futures.ThreadPoolExecutor() as executor:
             responses = list(executor.map(get_download_link, results))
-        # async with aiohttp.ClientSession() as session:
-        #     tasks = [get_download_link(session, result) for result in results]
-        #     responses = await asyncio.gather(*tasks)
             responses = list(filter(lambda x : x is not None, responses))
     
     return responses
