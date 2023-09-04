@@ -35,8 +35,8 @@ async def ask_bai(prompt: str):
     response = requests.request("POST", url, headers=headers, data=payload)
     data = response.text
     data = data.split("event: ")
-    response = data[-2].strip('update\r\ndata: {"content": ""').strip().strip("}").strip('"')
-    return response
+    response = data[-2].strip().split("content")[-1].split(":")[1].strip('"}')
+    return response.strip().strip('"')
     
 
 async def ask_gpt(prompt: str):
