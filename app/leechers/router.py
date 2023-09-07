@@ -3,7 +3,7 @@ from typing import Union
 from fastapi.responses import Response
 from loguru import logger
 
-from app.model import libgenRequest
+from app.model import libgenRequest, leechRequest
 from app.leechers.libgen import scrape_libgen
 from app.leechers.ytsmx import get_yts_magnet
 from app.leechers.nyaasi import get_nyaasi_magnet
@@ -16,56 +16,56 @@ from app.leechers.piratesbay import get_piratesbay_magnet
 router = APIRouter()
 
 
-@router.get("/piratesbay/{movie}")
-async def piratesbay(movie: str) -> list[dict]:
+@router.post("/piratesbay")
+async def piratesbay(request: leechRequest) -> list[dict]:
     """Get Magnet Links directly from piratesbay"""
     try:
-        result = await get_piratesbay_magnets(movie)
+        result = await get_piratesbay_magnet(request.movie)
         return result
     except Exception as e:
-        raise HTTPException(status_code=404, detail="Unable to fetch magnets")
+            raise HTTPException(status_code=404, detail="Unable to fetch magnets")
 
-@router.get("/ytsmx/{movie}")
-async def ytsmx(movie: str) -> list[dict]:
+@router.post("/ytsmx")
+async def ytsmx(request: leechRequest) -> list[dict]:
     """Get Magnet Links directly from ytsmx"""
     try:
-        result = await get_yts_magnet(movie)
+        result = await get_yts_magnet(request.movie)
         return result
     except Exception as e:
         raise HTTPException(status_code=404, detail="Unable to fetch magnets")
 
-@router.get("/bitsearch/{movie}")
-async def nyaasi(movie: str) -> list[dict]:
+@router.post("/bitsearch")
+async def bitsearch(request: leechRequest) -> list[dict]:
     """Get Magnet Links directly from bitsearch.to"""
     try:
-        result = await get_bitsearch_magnet(movie)
+        result = await get_bitsearch_magnet(request.movie)
         return result
     except Exception as e:
         raise HTTPException(status_code=404, detail="Unable to fetch magnets")
 
-@router.get("/magnetdl/{movie}")
-async def nyaasi(movie: str) -> list[dict]:
+@router.post("/magnetdl")
+async def magnetdl(request: leechRequest) -> list[dict]:
     """Get Magnet Links directly from bitsearch.to"""
     try:
-        result = await get_magnetdl_magnet(movie)
+        result = await get_magnetdl_magnet(request.movie)
         return result
     except Exception as e:
         raise HTTPException(status_code=404, detail="Unable to fetch magnets")
 
-@router.get("/nyaasi/{movie}")
-async def nyaasi(movie: str) -> list[dict]:
+@router.post("/nyaasi")
+async def nyaasi(request: leechRequest) -> list[dict]:
     """Get Magnet Links directly from nyaa.si"""
     try:
-        result = await get_nyaasi_magnet(movie)
+        result = await get_nyaasi_magnet(request.movie)
         return result
     except Exception as e:
         raise HTTPException(status_code=404, detail="Unable to fetch magnets")
 
-@router.get("/zooqle/{movie}")
-async def nyaasi(movie: str) -> list[dict]:
+@router.post("/zooqle")
+async def zooqle(request: leechRequest) -> list[dict]:
     """Get Magnet Links directly from zooqle.xyz"""
     try:
-        result = await get_zooqle_magnet(movie)
+        result = await get_zooqle_magnet(request.movie)
         return result
     except Exception as e:
         raise HTTPException(status_code=404, detail="Unable to fetch magnets")

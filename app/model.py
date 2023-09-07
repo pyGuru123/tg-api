@@ -85,3 +85,6 @@ class gitaResponse(BaseModel):
 class libgenRequest(BaseModel):
     isbn: Optional[str] = ""
     book_name: Optional[str] = ""
+
+class leechRequest(BaseModel):
+    movie: str

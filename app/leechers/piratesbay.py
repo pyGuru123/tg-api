@@ -14,6 +14,7 @@ async def get_piratesbay_magnet(movie):
 	movie_name = movie.replace(" ", "%20")
 	url = f"https://apibay.org/q.php?q={movie_name}&cat=0"
 	response = requests.get(url)
+	logger.info(response.status_code)
 	all_data = response.json()
 	result_set = []
 
