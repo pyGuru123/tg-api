@@ -14,6 +14,7 @@ CHIMERA_ENDPOINT = os.environ.get("CHIMERA_ENDPOINT")
 CHIMERA_TOKEN = os.environ.get("CHIMERA_TOKEN")
 BAI_ORG_ID = os.environ.get("BAI_ORG_ID")
 BAI_TOKEN = os.environ.get("BAI_TOKEN")
+PALM_TOKEN = os.environ.get("PALM_TOKEN")
 
 async def ask_bai(prompt: str):
     req_rand = random.randint(100000, 999999)
@@ -73,3 +74,28 @@ async def ask_llama(prompt: str):
 
     response = requests.post(CHIMERA_ENDPOINT, json=payload, headers=headers)
     return response.json()["choices"][0]["message"]["content"]
+
+
+async def ask_palm(prompt: str):
+    headers = {
+        'Content-Type': 'application/json',
+    }
+
+    params = {
+        'key': PALM_TOKEN,
+    }
+
+    json_data = {
+        'prompt': {
+            "messages": [{"content":prompt}]
+        },
+    }
+
+    response = requests.post(
+        'https://generativelanguage.googleapis.com/v1beta2/models/chat-bison-001:generateMessage',
+        params=params,
+        headers=headers,
+        json=json_data,
+    )
+
+    return response.json()["candidates"][0]["content"]

@@ -5,7 +5,12 @@ from loguru import logger
 
 from app.model import llmRequest, llmResponse
 from app.llmodels.bard import ask_bard
-from app.llmodels.llm import ask_gpt, ask_llama, ask_bai
+from app.llmodels.llm import (
+    ask_gpt,
+    ask_llama,
+    ask_bai,
+    ask_palm
+)
 
 router = APIRouter()
 
@@ -31,27 +36,6 @@ async def gpt(request: llmRequest) -> llmResponse:
             content="",
             error=str(e)
         )
-
-# @router.post("/bard")
-# async def bard(request: llmRequest) -> llmResponse:
-#     """Search Google Bard in a sessioned state"""
-#     try:
-#         prompt = request.prompt
-#         data = await ask_bard(prompt)
-
-#         return llmResponse(
-#             message="success",
-#             prompt=prompt,
-#             content=data,
-#             error=""
-#         )
-#     except Exception as e:
-#         return llmResponse(
-#             message="error",
-#             prompt=prompt,
-#             content="",
-#             error=str(e)
-#         )
 
 @router.post("/llama")
 async def llama(request: llmRequest) -> llmResponse:
@@ -95,3 +79,47 @@ async def bai(request: llmRequest) -> llmResponse:
             content="",
             error=str(e)
         )
+
+
+@router.post("/palm")
+async def palm(request: llmRequest) -> llmResponse:
+    """Search chatgpt using b.ai interface"""
+    try:
+        prompt = request.prompt
+        data = await ask_palm(prompt)
+
+        return llmResponse(
+            message="success",
+            prompt=prompt,
+            content=data,
+            error=""
+        )
+    except Exception as e:
+        return llmResponse(
+            message="error",
+            prompt=prompt,
+            content="",
+            error=str(e)
+        )
+
+
+# @router.post("/bard")
+# async def bard(request: llmRequest) -> llmResponse:
+#     """Search Google Bard in a sessioned state"""
+#     try:
+#         prompt = request.prompt
+#         data = await ask_bard(prompt)
+
+#         return llmResponse(
+#             message="success",
+#             prompt=prompt,
+#             content=data,
+#             error=""
+#         )
+#     except Exception as e:
+#         return llmResponse(
+#             message="error",
+#             prompt=prompt,
+#             content="",
+#             error=str(e)
+#         )
