@@ -15,11 +15,15 @@ async def get_bitsearch_magnet(movie):
         stats_div = row.find("div", class_="stats")
         stats_divs = stats_div.find_all("div")
         size = stats_divs[1].text.strip()
+        seeders = stats_divs[2].text.strip()
+        leechers = stats_divs[3].text.strip()
         magnet = row.find("a", class_="dl-magnet")['href']
 
         result = {
             "name": name,
             "size": size,
+            "seeders": seeders,
+            "leechers": leechers,
             "magnet": magnet
         }
 

@@ -23,6 +23,8 @@ async def get_piratesbay_magnet(movie):
 			result = {
 				"name" : data['name'], 
 				"size" : await bytes_to_gb(int(data['size'])),
+				"seeders": str(data['seeders']),
+				"leechers": str(data['leechers']),
 				"magnet" : await create_magnet(data['name'], data['info_hash'])
 			}
 			result_set.append(result)

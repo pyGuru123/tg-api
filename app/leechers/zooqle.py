@@ -30,7 +30,6 @@ async def get_zooqle_magnet(movie):
     }
     response = requests.post(url, data=form_data)
     soup = BeautifulSoup(response.text, "html.parser")
-    logger.info(f"{soup.title}")
 
     table = soup.find("table", class_="film-table")
     table_body = table.find("tbody")
@@ -41,11 +40,15 @@ async def get_zooqle_magnet(movie):
         name = cols[0].text.strip()
         id = cols[0].find("input").get('value')
         size = cols[1].text.strip()
+        seeders = cols[2].text.strip()
+        leechers = cols[3].text.strip()
 
         result = {
             "name": name,
-            "id": id,
-            "size": size
+            "size": size,
+            "seeders": seeders,
+            "leechers": leechers,
+            "id": id
         }
         results.append(result)
 

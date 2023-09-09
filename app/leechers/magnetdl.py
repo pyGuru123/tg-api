@@ -43,13 +43,17 @@ async def get_magnetdl_magnet(movie):
         cols = row.find_all("td")
         if cols:
             name = cols[0].text.strip()
+            seeders = cols[2].text
+            leechers = cols[3].text
             size = cols[5].text
             id = cols[0].find("input").get('value')
 
             result = {
                 "name": name,
+                "size": size,
+                "seeders": seeders,
+                "leechers": leechers,
                 "id": id,
-                "size": size
             }
             results.append(result)
 

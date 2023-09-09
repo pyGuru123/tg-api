@@ -20,6 +20,8 @@ async def get_nyaasi_magnet(movie):
             result = {
                 "name": cols[1].text.strip().replace("\n", " - "),
                 "size": cols[3].text.strip(),
+                "seeders": cols[5].text,
+                "leechers": cols[6].text,
                 "magnet": cols[2].find_all("a")[1]['href']
             }
 

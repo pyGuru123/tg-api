@@ -39,6 +39,8 @@ async def get_yts_magnet(movie):
 				result = {
 					"name": f"{data['title_long']} {torrent['quality']}",
 					"size": torrent["size"],
+					"seeders": str(torrent["seeds"]),
+					"leechers": str(torrent["peers"]),
 					"magnet": await create_magnet(data["title"], torrent['hash'])
 				}
 				result_set.append(result)
