@@ -8,6 +8,7 @@ from app.leechers.libgen import scrape_libgen
 from app.leechers.ytsmx import get_yts_magnet
 from app.leechers.nyaasi import get_nyaasi_magnet
 from app.leechers.zooqle import get_zooqle_magnet
+from app.leechers._1337x import get_1337x_magnet
 from app.leechers.magnetdl import get_magnetdl_magnet
 from app.leechers.bitsearch import get_bitsearch_magnet
 from app.leechers.piratesbay import get_piratesbay_magnet
@@ -30,6 +31,15 @@ async def ytsmx(request: leechRequest) -> list[dict]:
     """Get Magnet Links directly from ytsmx"""
     try:
         result = await get_yts_magnet(request.movie)
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=404, detail="Unable to fetch magnets")
+
+@router.post("/1337x")
+async def _1337x(request: leechRequest) -> list[dict]:
+    """Get Magnet Links directly from 1337x.to"""
+    try:
+        result = await get_1337x_magnet(request.movie)
         return result
     except Exception as e:
         raise HTTPException(status_code=404, detail="Unable to fetch magnets")
