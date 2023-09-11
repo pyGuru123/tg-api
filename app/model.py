@@ -88,3 +88,4 @@ class libgenRequest(BaseModel):
 
 class leechRequest(BaseModel):
     movie: str
+
