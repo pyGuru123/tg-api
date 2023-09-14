@@ -59,21 +59,21 @@ async def ask_gpt(prompt: str):
 
 
 async def ask_llama(prompt: str):
-    payload = {
-      "model": "llama-2-70b-chat",
-      "max_tokens": 2000,
-      "messages": [
-        {"role": "user", "content": prompt}
-      ]
-    }
+    payload = json.dumps({
+      "prompt": prompt,
+      "version": "2796ee9483c3fd7aa2e171d38f4ca12251a30609463dcfd4cd76703f22e96cdf",
+      "systemPrompt": "You are a helpful assistant.",
+      "temperature": 0.75,
+      "topP": 0.9,
+      "maxTokens": 800
+    })
 
     headers = {
-      "Authorization": "Bearer " + CHIMERA_TOKEN,
       "Content-Type": "application/json"
     }
 
-    response = requests.post(CHIMERA_ENDPOINT, json=payload, headers=headers)
-    return response.json()["choices"][0]["message"]["content"]
+    response = requests.post("https://www.llama2.ai/api", data=payload, headers=headers)
+    return response.text
 
 
 async def ask_palm(prompt: str):
