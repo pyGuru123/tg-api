@@ -15,6 +15,7 @@ CHIMERA_TOKEN = os.environ.get("CHIMERA_TOKEN")
 BAI_ORG_ID = os.environ.get("BAI_ORG_ID")
 BAI_TOKEN = os.environ.get("BAI_TOKEN")
 PALM_TOKEN = os.environ.get("PALM_TOKEN")
+GPT_ENDPOINT = os.environ.get("GPT_ENDPOINT")
 
 async def ask_bai(prompt: str):
     req_rand = random.randint(100000, 999999)
@@ -25,7 +26,8 @@ async def ask_bai(prompt: str):
         "category": "5be3c43f8bc740b792cce30cebdd861c",
         "model": "12cf0aaece3f4c27846aeb9c852dc0f9",
         "model_params": {},
-        "topic_id": None
+        "topic_id": None,
+        "stream": False
     })
 
     headers = {
@@ -36,26 +38,8 @@ async def ask_bai(prompt: str):
     response = requests.request("POST", url, headers=headers, data=payload)
     data = response.text
     data = data.split("event: ")
-    response = data[-2].strip().split("content")[-1].split(":")[1].strip('"}')
+    response = data[-2].strip().replace('{"content": "', "").split('"}')[0].replace('update\r\ndata: ', "")
     return response.strip().strip('"')
-    
-
-async def ask_gpt(prompt: str):
-    payload = {
-      "model": "gpt-3.5-turbo-16k",
-      "max_tokens": 2000,
-      "messages": [
-        {"role": "user", "content": prompt}
-      ]
-    }
-
-    headers = {
-      "Authorization": "Bearer " + CHIMERA_TOKEN,
-      "Content-Type": "application/json"
-    }
-
-    response = requests.post(CHIMERA_ENDPOINT, json=payload, headers=headers)
-    return response.json()["choices"][0]["message"]["content"]
 
 
 async def ask_llama(prompt: str):
@@ -99,3 +83,32 @@ async def ask_palm(prompt: str):
     )
 
     return response.json()["candidates"][0]["content"]
+
+
+async def ask_gpt(prompt: str):
+    payload = json.dumps({
+      "messages": [
+        {
+          "role": "system",
+          "content": "You are ChatGPT, a large language model trained by OpenAI.\nCarefully heed the user's instructions. \nRespond using Markdown."
+        },
+        {
+          "role": "user",
+          "content": prompt
+        }
+      ],
+      "model": "gpt-3.5-turbo",
+      "temperature": 1,
+      "presence_penalty": 0,
+      "top_p": 1,
+      "frequency_penalty": 0,
+      "stream": False
+    })
+
+    headers = {
+      'Authorization': 'Bearer pk-this-is-a-real-free-pool-token-for-everyone',
+      'Content-Type': 'application/json'
+    }
+
+    response = requests.request("POST", GPT_ENDPOINT, headers=headers, data=payload)
+    return response.json()["choices"][0]["message"]["content"]

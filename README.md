@@ -18,6 +18,11 @@ Create a new issue about what you want to implement. The API is written in FastA
 * Run main.py ```python main.py```
 * Open the localhost port 8000 in browser ```http://localhost:8000/docs```
 
+### Heroku Deployment
+
+* Procfile   -> web: uvicorn app.api:app --host=0.0.0.0 --port=$PORT
+* heroku-cli -> heroku ps:scale web=1 --app tgapi
+
 #### How to contribute
 
 * Once your issue gets a thumbsup 👍, setup the project
