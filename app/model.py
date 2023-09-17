@@ -55,6 +55,7 @@ class simpleResponse(BaseModel):
 
 class llmRequest(BaseModel):
     prompt: str
+    context: Optional[str] = ""
 
 class llmResponse(BaseModel):
     message: str

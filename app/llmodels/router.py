@@ -20,7 +20,8 @@ async def gpt(request: llmRequest) -> llmResponse:
     """Search ChatGPT using gpt-3.5-turbo model"""
     try:
         prompt = request.prompt
-        data = await ask_gpt(prompt)
+        context = request.context
+        data = await ask_gpt(prompt, context)
         logger.info(f"{data=}")
 
         return llmResponse(

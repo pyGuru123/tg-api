@@ -85,12 +85,17 @@ async def ask_palm(prompt: str):
     return response.json()["candidates"][0]["content"]
 
 
-async def ask_gpt(prompt: str):
+async def ask_gpt(prompt: str, context: str):
+    if not context:
+        context ="You are ChatGPT, a large language model trained by OpenAI.\
+                Carefully heed the user's instructions.\
+                Respond using Markdown."
+
     payload = json.dumps({
       "messages": [
         {
           "role": "system",
-          "content": "You are ChatGPT, a large language model trained by OpenAI.\nCarefully heed the user's instructions. \nRespond using Markdown."
+          "content": context
         },
         {
           "role": "user",
