@@ -579,3 +579,5 @@ class DeviantArt(Enum):
 
     ID = 23185
     SECRET = "fae0145a0736611056a5196a122c0d36"
+# https://www.imagine.art/dashboard/
+# https://www.imagine.art/dashboard/
