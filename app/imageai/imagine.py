@@ -43,7 +43,8 @@ async def imagine_art(prompt: str, model: str="imagine_v4"):
         'cfg': '7.5',
         'aspect_ratio': '1:1',
         'prompt': prompt,
-        'negative_prompt': ' ',
+        'negative_prompt': 'ugly, deformedd, disfigured, low-quality, distorted, revolting, abhorrent, horrid, unseemly, \
+                    unsightly, off-putting, unsatisfactory, second-rate, mediocre, lousy, poor-quality',
         'style_id': str(style_id)
     }
 
