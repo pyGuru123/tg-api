@@ -1,64 +1,59 @@
+import os
 import time
+import platform
 import requests
+from loguru import logger
+from requests_toolbelt.multipart.encoder import MultipartEncoder
 
-MODELS = {
-    "Absolute Reality V1.8.1": "absolutereality_v181.safetensors [3d9d4d2b]",
-    "Anything V5": "anythingV5_PrtRE.safetensors [893e49b9]",
-    "AbyssOrangeMix V3": "AOM3A3_orangemixs.safetensors [9600da17]",
-    "Dreamshaper 8": "dreamshaper_8.safetensors [9d40847d]",
-    "Elldreth's Vivid": "elldreths-vivid-mix.safetensors [342d9d26]",
-    "MeinaMix Meina V11": "meinamix_meinaV11.safetensors [b56ce717]",
-    "Openjourney V4": "openjourney_V4.ckpt [ca2f377f]",
-    "Portrait+ V1": "portraitplus_V1.0.safetensors [1400e684]",
-    "Realistic Vision V5.0": "Realistic_Vision_V5.0.safetensors [614d1063]",
-    "Redshift Diffusion V1.0": "redshift_diffusion-V10.safetensors [1400e684]",
-    "Shonin's Beautiful People V1.0": "shoninsBeautiful_v10.safetensors [25d8c546]",
-    "Timeless V1": "timeless-1.0.ckpt [7c4971d4]"
+if platform.system() == "Windows":
+    from dotenv import load_dotenv
+
+    load_dotenv()
+
+TOKEN= os.environ.get("VYRO_TOKEN")
+
+IMAGINE_MODELS = {
+    "creative_v4": 31,
+    "imagine_v4": 30,
+    "imagine_v3": 28,
+    "imagine_v1": 27,
+    "portrait": 26,
+    "realistic": 29,
+    "anime": 21
 }
 
-def get_model(model_name):
-    model = MODELS[model_name].replace(" ", "+")
-    model = model.replace("[", "%5B").replace("]", "%5D")
-    return model
-
-def get_model_tensor(model):
+def get_imagine_model(model):
     if not model:
-        return get_model("Dreamshaper 8")
+        return IMAGINE_MODELS["imagine_v4"]
 
-    return get_model(model)
+    return IMAGINE_MODELS.get(model, 30)
 
 async def imagine_all_models():
-    return list(MODELS.keys())
+    return list(IMAGINE_MODELS.keys())
 
-def is_success(response: dict):
-  return response.json()["status"] == "succeeded"
 
-async def poll_api(url, success_condition, step=1, timeout=30):
-    start_time = time.time()
-    while time.time() - start_time < timeout:
-        response = requests.get(url)
-        if success_condition(response):
-            return True
-        time.sleep(step)
-    raise TimeoutError("API request did not succeed within timeout")
+async def imagine_art(prompt: str, model: str="imagine_v4"):
+    style_id = get_imagine_model(model)
+    url = "https://api.vyro.ai/v1/imagine/web/generations"
 
-async def imagine(prompt: str, model: str) -> bytes:
-    negatives = "ugly, tiling, poorly drawn hands, poorly drawn feet, poorly drawn face, out of frame, extra limbs,\
-             disfigured, deformed, body out of frame, blurry, bad anatomy, blurred, watermark, grainy,\
-              signature, cut off, draft".replace(",", "%2C").replace(" ", "+")
-    try:
-        prompt = "+".join(prompt.split(" "))
-        model = get_model_tensor(model)
-        endpoint = f"https://api.prodia.com/generate?new=true&prompt={prompt}&model={model}&\
-                    negative_prompt={negatives}&steps=25&cfg=7&seed=2280986900&sampler=DPM%2B%2B+2M+Karras&aspect_ratio=square"
-        response = requests.get(endpoint)
-        job_id = response.json()["job"]
+    payload = {
+        'model_version': '1',
+        'steps': '30',
+        'seed': '988553',
+        'cfg': '7.5',
+        'aspect_ratio': '1:1',
+        'prompt': prompt,
+        'negative_prompt': ' ',
+        'style_id': str(style_id)
+    }
 
-        url = f"https://api.prodia.com/job/{job_id}"
-        response = await poll_api(url, is_success)
-        if response:
-            url = f"https://images.prodia.xyz/{job_id}.png?download=1"
-            response = requests.get(url)
-            return response.content
-    except Exception as e:
-        return str(e)
+    multipart_data = MultipartEncoder(fields=payload)
+
+    headers = {
+      'Authorization': f"Bearer {TOKEN}",
+      'Content-Type': multipart_data.content_type,
+      'User-Agent': "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Mobile Safari/537.36"
+    }
+
+    response = requests.request("POST", url, headers=headers, data=multipart_data)
+    return response.content
