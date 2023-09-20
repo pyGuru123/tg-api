@@ -7,6 +7,7 @@ from app.model import llmRequest, llmResponse
 from app.llmodels.bard import ask_bard
 from app.llmodels.llm import (
     ask_gpt,
+    ask_gpt4,
     ask_llama,
     ask_bai,
     ask_palm
@@ -22,6 +23,29 @@ async def gpt(request: llmRequest) -> llmResponse:
         prompt = request.prompt
         context = request.context
         data = await ask_gpt(prompt, context)
+        logger.info(f"{data=}")
+
+        return llmResponse(
+            message="success",
+            prompt=prompt,
+            content=data,
+            error=""
+        )
+    except Exception as e:
+        return llmResponse(
+            message="error",
+            prompt=prompt,
+            content="",
+            error=str(e)
+        )
+
+@router.post("/gpt4")
+async def gpt4(request: llmRequest) -> llmResponse:
+    """Search ChatGPT using gpt-3.5-turbo model"""
+    try:
+        prompt = request.prompt
+        context = request.context
+        data = await ask_gpt4(prompt, context)
         logger.info(f"{data=}")
 
         return llmResponse(

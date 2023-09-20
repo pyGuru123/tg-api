@@ -16,6 +16,8 @@ BAI_ORG_ID = os.environ.get("BAI_ORG_ID")
 BAI_TOKEN = os.environ.get("BAI_TOKEN")
 PALM_TOKEN = os.environ.get("PALM_TOKEN")
 GPT_ENDPOINT = os.environ.get("GPT_ENDPOINT")
+GPT4_ENDPOINT = os.environ.get("GPT4_ENDPOINT")
+GPT4_TOKEN = os.environ.get("GPT4_TOKEN")
 
 async def ask_bai(prompt: str):
     req_rand = random.randint(100000, 999999)
@@ -116,4 +118,34 @@ async def ask_gpt(prompt: str, context: str):
     }
 
     response = requests.request("POST", GPT_ENDPOINT, headers=headers, data=payload)
+    return response.json()["choices"][0]["message"]["content"]
+
+async def ask_gpt4(prompt: str, context: str):
+    if not context:
+        context ="You are ChatGPT, a large language model trained by OpenAI.\
+        Knowledge cutoff: 2021-09\
+        Current model: gpt-4\
+        Current time: 20/09/2023, 23:40:21"
+
+    payload = json.dumps({
+        "messages": [
+                {
+                  "role": "system",
+                  "content": context
+                },
+                {
+                  "role": "user",
+                  "content": prompt
+                }
+            ],
+            "stream": False,
+            "model": "gpt-4"
+        })
+
+    headers = {
+      'Authorization': GPT4_TOKEN,
+      'Content-Type': 'application/json'
+    }
+
+    response = requests.request("POST", GPT4_ENDPOINT, headers=headers, data=payload)
     return response.json()["choices"][0]["message"]["content"]
