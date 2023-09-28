@@ -10,6 +10,21 @@ Looking for a way to contribute to this project. Its kinda easy. We just expect 
 Base Endpoint : [https://tgapi-7d0b0583d985.herokuapp.com](https://tgapi-7d0b0583d985.herokuapp.com) \
 Documentation : [https://tgapi-7d0b0583d985.herokuapp.com/docs](https://tgapi-7d0b0583d985.herokuapp.com/docs)
 
+## Basic Example
+
+Here's a simple python requests based example of our ```/gpt``` endpoint
+
+```python
+import requests
+
+url = "https://tgapi-7d0b0583d985.herokuapp.com/api/v1/llmodels/gpt"
+payload = {
+	"prompt": "hello. How are you ?"
+}
+response = requests.post(url, json=payload)
+print(response.json())
+```
+
 ## Contributions are welcome
 
 Create a new issue about what you want to implement. The API is written in FastAPI and python so a basic knowledge of both is expected. Also we directly integrate this api with our telegram bot, so make sure your feature should be compatible with our bot. Contact admins for the same.
