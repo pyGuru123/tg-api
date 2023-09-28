@@ -2,6 +2,11 @@
 
 Few APIs for [@pyguru](https://t.me/pyguru) telegram channel.
 
+## We are participating in Hacktoberfest 2023.
+Looking for a way to contribute to this project. Its kinda easy. We just expect an api endpoint which can be helpful for our telegram bot. You can discuss your ideas in our group here [@pyguru](https://t.me/pyguru)
+
+## API Endpoints
+
 Base Endpoint : [https://tgapi-7d0b0583d985.herokuapp.com](https://tgapi-7d0b0583d985.herokuapp.com) \
 Documentation : [https://tgapi-7d0b0583d985.herokuapp.com/docs](https://tgapi-7d0b0583d985.herokuapp.com/docs)
 
