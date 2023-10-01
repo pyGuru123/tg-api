@@ -2,9 +2,6 @@
 
 Few APIs for [@pyguru](https://t.me/pyguru) telegram channel.
 
-## We are participating in Hacktoberfest 2023.
-Looking for a way to contribute to this project. Its kinda easy. We just expect an api endpoint which can be helpful for our telegram bot. You can discuss your ideas in our group here [@pyguru](https://t.me/pyguru)
-
 ## API Endpoints
 
 Base Endpoint : [https://tgapi-7d0b0583d985.herokuapp.com](https://tgapi-7d0b0583d985.herokuapp.com) \
@@ -54,10 +51,24 @@ Create a new issue about what you want to implement. The API is written in FastA
 * Test your code on localhost for all possible cases, do add exception handling
 * Push the code and create a PR.
 
-#
+<div align="center">
+<h3> Show some ❤️ by starring this repository! </h3>
+</div>
+
+# 
 
 <div align="center">
-
-### Show some ❤️ by starring this repository!
-
+<img src="https://hacktoberfest.com/_next/static/media/logo-hacktoberfest--horizontal.ebc5fdc8.svg"/>
+<br/>
+This Repository is Participating in Hacktoberfest 2023
+<br/>
+<br/>
 </div>
+
+To participate and contribute checkout our issues section. You can discuss also discuss new ideas in our telegram group here [@pyguru](https://t.me/pyguruDiscussion)
+
+Our other repositiores partcipating in Hacktoberfest 2023
+
+* [LLM-Apps](https://github.com/pyGuru123/LLM-Apps)
+* [Decrypto](https://github.com/pyGuru123/Decrypto)
+* [TG-Api](https://github.com/pyGuru123/tg-api)
