@@ -58,11 +58,12 @@ Create a new issue about what you want to implement. The API is written in FastA
 # 
 
 <div align="center">
-<img src="https://hacktoberfest.com/_next/static/media/logo-hacktoberfest--horizontal.ebc5fdc8.svg"/>
-<br/>
-This Repository is Participating in Hacktoberfest 2023 <br/>
-<br/>
-<br/>
+<img src="https://hacktoberfest.com/_next/static/media/logo-hacktoberfest--horizontal.ebc5fdc8.svg"/> <br/>
+This Repository is Participating in Hacktoberfest 2023 <br/><br/>
+<img src='https://img.shields.io/github/issues/pyGuru123/tg-api?logo=github&color=blue'>
+<img src='https://img.shields.io/github/stars/pyGuru123/tg-api?style=social'>
+<img src='https://img.shields.io/github/forks/pyGuru123/tg-api?style=social&logo=git'>
+<br/><br/>
 </div>
 
 To participate and contribute checkout our issues section. You can also discuss new ideas in our telegram group here [@pyguru](https://t.me/pyguruDiscussion)
@@ -72,3 +73,4 @@ Our other repositiores partcipating in Hacktoberfest 2023
 * [LLM-Apps](https://github.com/pyGuru123/LLM-Apps)
 * [Decrypto](https://github.com/pyGuru123/Decrypto)
 * [TG-Api](https://github.com/pyGuru123/tg-api)
+
