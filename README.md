@@ -52,7 +52,7 @@ Create a new issue about what you want to implement. The API is written in FastA
 * Push the code and create a PR.
 
 <div align="center">
-<h3> Show some ❤️ by starring this repository! </h3>
+<h4> Show some ❤️ by starring this repository! </h4>
 </div>
 
 # 
@@ -60,12 +60,19 @@ Create a new issue about what you want to implement. The API is written in FastA
 <div align="center">
 <img src="https://hacktoberfest.com/_next/static/media/logo-hacktoberfest--horizontal.ebc5fdc8.svg"/>
 <br/>
-This Repository is Participating in Hacktoberfest 2023
+This Repository is Participating in Hacktoberfest 2023 <br/>
+
+<center>
+	[![GitHub issues](https://img.shields.io/github/issues/pyGuru123/Hacktoberfest-2021?logo=github)](https://github.com/pyGuru123/Hacktoberfest-2021/issues)
+	[![GitHub stars](https://img.shields.io/github/stars/pyGuru123/Hacktoberfest-2021?style=social)](https://github.com/pyGuru123/Hacktoberfest-2021/stargazers)
+	[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fpyguru123%2FHacktoberfest-2021&count_bg=%23DD8524&title_bg=%23555555&icon=github.svg&icon_color=%23E7E7E7&title=visitors&edge_flat=false)](https://github.com/aritraroy24/HACKTOBERFEST2021_PATTERN) 
+	[![GitHub forks](https://img.shields.io/github/forks/pyGuru123/Hacktoberfest-2021?style=social&logo=git)](https://github.com/pyGuru123/Hacktoberfest-2021/network/)
+</center>
 <br/>
 <br/>
 </div>
 
-To participate and contribute checkout our issues section. You can discuss also discuss new ideas in our telegram group here [@pyguru](https://t.me/pyguruDiscussion)
+To participate and contribute checkout our issues section. You can also discuss new ideas in our telegram group here [@pyguru](https://t.me/pyguruDiscussion)
 
 Our other repositiores partcipating in Hacktoberfest 2023
 
