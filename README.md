@@ -2,8 +2,25 @@
 
 Few APIs for [@pyguru](https://t.me/pyguru) telegram channel.
 
+## API Endpoints
+
 Base Endpoint : [https://tgapi-7d0b0583d985.herokuapp.com](https://tgapi-7d0b0583d985.herokuapp.com) \
 Documentation : [https://tgapi-7d0b0583d985.herokuapp.com/docs](https://tgapi-7d0b0583d985.herokuapp.com/docs)
+
+## Basic Example
+
+Here's a simple python requests based example of our ```/gpt``` endpoint
+
+```python
+import requests
+
+url = "https://tgapi-7d0b0583d985.herokuapp.com/api/v1/llmodels/gpt"
+payload = {
+	"prompt": "hello. How are you ?"
+}
+response = requests.post(url, json=payload)
+print(response.json())
+```
 
 ## Contributions are welcome
 
@@ -34,10 +51,26 @@ Create a new issue about what you want to implement. The API is written in FastA
 * Test your code on localhost for all possible cases, do add exception handling
 * Push the code and create a PR.
 
-#
+<div align="center">
+<h4> Show some ❤️ by starring this repository! </h4>
+</div>
+
+# 
 
 <div align="center">
-
-### Show some ❤️ by starring this repository!
-
+<img src="https://hacktoberfest.com/_next/static/media/logo-hacktoberfest--horizontal.ebc5fdc8.svg"/> <br/>
+This Repository is Participating in Hacktoberfest 2023 <br/><br/>
+<img src='https://img.shields.io/github/issues/pyGuru123/tg-api?logo=github&color=blue'>
+<img src='https://img.shields.io/github/stars/pyGuru123/tg-api?style=social'>
+<img src='https://img.shields.io/github/forks/pyGuru123/tg-api?style=social&logo=git'>
+<br/><br/>
 </div>
+
+To participate and contribute checkout our issues section. You can also discuss new ideas in our telegram group here [@pyguru](https://t.me/pyguruDiscussion)
+
+Our other repositiores partcipating in Hacktoberfest 2023
+
+* [LLM-Apps](https://github.com/pyGuru123/LLM-Apps)
+* [Decrypto](https://github.com/pyGuru123/Decrypto)
+* [TG-Api](https://github.com/pyGuru123/tg-api)
+
